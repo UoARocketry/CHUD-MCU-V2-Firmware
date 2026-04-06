@@ -21,6 +21,8 @@
 #include "lora.h"
 #include "cmsis_os.h"
 #include "fatfs.h"
+#include <stdio.h>
+#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -44,6 +46,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi3;
 
 TIM_HandleTypeDef htim3;
 
@@ -52,6 +55,10 @@ UART_HandleTypeDef huart2;
 
 osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
+LoRa myLoRa;
+#define LORA_MAX_MSG 200
+char LoRa_send_buffer[LORA_MAX_MSG];
+osMutexId LoRaMutexHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,16 +68,22 @@ static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_SPI3_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 void SPI_Send_Packet(uint8_t *data, uint16_t length);
+void UpdateLoRaPayload(const char* msg);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
   #define CS_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
   #define CS_HIGH() HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
+
+
+//Lora Stuff
+
 /* USER CODE END 0 */
 
 /**
@@ -108,7 +121,22 @@ int main(void)
   MX_USART2_UART_Init();
   MX_FATFS_Init();
   MX_TIM3_Init();
+  MX_SPI3_Init();
   /* USER CODE BEGIN 2 */
+  osMutexDef(LoRaMutex);
+  LoRaMutexHandle = osMutexCreate(osMutex(LoRaMutex));
+
+
+  myLoRa.CS_port    = NSS_GPIO_Port;
+  myLoRa.CS_pin     = NSS_Pin;
+  myLoRa.reset_port = RESET_GPIO_Port;
+  myLoRa.reset_pin  = RESET_Pin;
+  myLoRa.DIO0_port  = DIO0_GPIO_Port;
+  myLoRa.DIO0_pin   = DIO0_Pin;
+  myLoRa.hSPIx      = &hspi3;  //
+
+  LoRa_init(&myLoRa);
+
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -241,6 +269,44 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief SPI3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI3_Init(void)
+{
+
+  /* USER CODE BEGIN SPI3_Init 0 */
+
+  /* USER CODE END SPI3_Init 0 */
+
+  /* USER CODE BEGIN SPI3_Init 1 */
+
+  /* USER CODE END SPI3_Init 1 */
+  /* SPI3 parameter configuration*/
+  hspi3.Instance = SPI3;
+  hspi3.Init.Mode = SPI_MODE_MASTER;
+  hspi3.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi3.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi3.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi3.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi3.Init.NSS = SPI_NSS_HARD_OUTPUT;
+  hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi3.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi3.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi3.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI3_Init 2 */
+
+  /* USER CODE END SPI3_Init 2 */
 
 }
 
@@ -378,7 +444,8 @@ static void MX_GPIO_Init(void)
                           |GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+                          |GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -401,8 +468,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB0 PB12 PB13 PB14 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14;
+  /*Configure GPIO pins : PB0 PB12 PB13 PB14
+                           PB4 PB5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
+                          |GPIO_PIN_4|GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -427,6 +496,40 @@ void StartSPITask(void const * argument)
   }
 }
 
+void StartLoRaSendTask(void const * argument)
+{
+    uint16_t LoRa_status = LoRa_init(&myLoRa);
+
+    if (LoRa_status != LORA_OK)
+    {
+        char err_msg[100];
+        snprintf(err_msg, sizeof(err_msg), "\n\r LoRa init failed! Code: %d \n\r", LoRa_status);
+        HAL_UART_Transmit(&huart1, (uint8_t*)err_msg, strlen(err_msg), 200);
+        vTaskDelete(NULL); // stop the task
+    }
+
+    for (;;)
+    {
+        // Lock mutex before reading buffer
+        osMutexWait(LoRaMutexHandle, osWaitForever);
+
+        // Send the buffer content
+        LoRa_transmit(&myLoRa, (uint8_t*)LoRa_send_buffer, strlen(LoRa_send_buffer), 100);
+
+        osMutexRelease(LoRaMutexHandle);
+
+        osDelay(1000); // send every 1 second
+    }
+}
+
+void UpdateLoRaPayload(const char* msg)
+{
+    osMutexWait(LoRaMutexHandle, osWaitForever);
+    strncpy(LoRa_send_buffer, msg, LORA_MAX_MSG-1);
+    LoRa_send_buffer[LORA_MAX_MSG-1] = '\0'; // ensure null-terminated
+    osMutexRelease(LoRaMutexHandle);
+}
+
 void SPI_Send_Packet(uint8_t *data, uint16_t length)
 {
   CS_LOW();
@@ -435,6 +538,7 @@ void SPI_Send_Packet(uint8_t *data, uint16_t length)
 
   CS_HIGH();
 }
+
 
 /* USER CODE END 4 */
 
