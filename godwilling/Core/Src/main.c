@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "lora.h"
 #include "cmsis_os.h"
 #include "fatfs.h"
 
