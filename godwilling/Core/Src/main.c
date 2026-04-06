@@ -69,7 +69,8 @@ void StartDefaultTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+  #define CS_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
+  #define CS_HIGH() HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
 /* USER CODE END 0 */
 
 /**
@@ -133,6 +134,13 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+
+  osThreadId spiTaskHandle;
+
+  void StartSPITask(void const * argument);
+
+  osThreadDef(spiTask, StartSPITask, osPriorityNormal, 0, 128);
+  spiTaskHandle = osThreadCreate(osThread(spiTask), NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
@@ -405,6 +413,24 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+// CONOPS TASKS
+void StartSPITask(void const * argument)
+{
+  uint8_t txData = 0x7E;
+
+  for(;;)
+  {
+	CS_LOW();
+    if (HAL_SPI_Transmit(&hspi1, &txData, 1, HAL_MAX_DELAY) != HAL_OK)
+    {
+      // Optional: handle error
+      Error_Handler();
+    }
+    CS_HIGH();
+
+    osDelay(1000); // send every 1 second
+  }
+}
 
 /* USER CODE END 4 */
 
