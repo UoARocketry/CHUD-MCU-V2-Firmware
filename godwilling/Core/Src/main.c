@@ -73,7 +73,10 @@ void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 void SPI_Send_Packet(uint8_t *data, uint16_t length);
+void StartSPITask(void const * argument);
+void StartLoRaSendTask(void const * argument);
 void UpdateLoRaPayload(const char* msg);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -164,12 +167,14 @@ int main(void)
   /* add threads, ... */
 
   osThreadId spiTaskHandle;
-
-  void StartSPITask(void const * argument);
+  osThreadId loraTaskHandle;
   //void SPI_Send(uint8_t *data, uint16_t length);
 
   osThreadDef(spiTask, StartSPITask, osPriorityNormal, 0, 128);
   spiTaskHandle = osThreadCreate(osThread(spiTask), NULL);
+  osThreadDef(loraTask, StartLoRaSendTask, osPriorityNormal, 0, 128);
+  loraTaskHandle = osThreadCreate(osThread(loraTask), NULL);
+
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
