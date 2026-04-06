@@ -51,7 +51,6 @@ UART_HandleTypeDef huart2;
 
 osThreadId defaultTaskHandle;
 /* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -64,7 +63,7 @@ static void MX_TIM3_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
-
+void SPI_Send_Packet(uint8_t *data, uint16_t length);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -91,6 +90,7 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -108,7 +108,6 @@ int main(void)
   MX_FATFS_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -138,6 +137,7 @@ int main(void)
   osThreadId spiTaskHandle;
 
   void StartSPITask(void const * argument);
+  //void SPI_Send(uint8_t *data, uint16_t length);
 
   osThreadDef(spiTask, StartSPITask, osPriorityNormal, 0, 128);
   spiTaskHandle = osThreadCreate(osThread(spiTask), NULL);
@@ -416,20 +416,23 @@ static void MX_GPIO_Init(void)
 // CONOPS TASKS
 void StartSPITask(void const * argument)
 {
-  uint8_t txData = 0x7E;
-
   for(;;)
   {
-	CS_LOW();
-    if (HAL_SPI_Transmit(&hspi1, &txData, 1, HAL_MAX_DELAY) != HAL_OK)
-    {
-      // Optional: handle error
-      Error_Handler();
-    }
-    CS_HIGH();
+    uint8_t packet[] = {0x7E, 0x01, 0x02, 0x03};
 
-    osDelay(1000); // send every 1 second
+    SPI_Send_Packet(packet, sizeof(packet));
+
+    osDelay(1000);
   }
+}
+
+void SPI_Send_Packet(uint8_t *data, uint16_t length)
+{
+  CS_LOW();
+
+  HAL_SPI_Transmit(&hspi1, data, length, HAL_MAX_DELAY);
+
+  CS_HIGH();
 }
 
 /* USER CODE END 4 */
