@@ -59,6 +59,7 @@ LoRa myLoRa;
 #define LORA_MAX_MSG 200
 char LoRa_send_buffer[LORA_MAX_MSG];
 osMutexId LoRaMutexHandle;
+osMutexId SPIMutexHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -72,17 +73,17 @@ static void MX_SPI3_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
-void SPI_Send_Packet(uint8_t *data, uint16_t length);
+//void SPI_Send_Packet(uint8_t *data, uint16_t length);
 void StartSPITask(void const * argument);
-void StartLoRaSendTask(void const * argument);
+//void StartLoRaSendTask(void const * argument);
+void StartLEDTask(void const * argument);
 void UpdateLoRaPayload(const char* msg);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-  #define CS_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
-  #define CS_HIGH() HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
+ // #define CS_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
 
 
 //Lora Stuff
@@ -126,6 +127,8 @@ int main(void)
   MX_TIM3_Init();
   MX_SPI3_Init();
   /* USER CODE BEGIN 2 */
+  osMutexDef(SPIMutex);
+  SPIMutexHandle = osMutexCreate(osMutex(SPIMutex));
   osMutexDef(LoRaMutex);
   LoRaMutexHandle = osMutexCreate(osMutex(LoRaMutex));
 
@@ -138,7 +141,7 @@ int main(void)
   myLoRa.DIO0_pin   = DIO0_Pin;
   myLoRa.hSPIx      = &hspi3;  //
 
-  LoRa_init(&myLoRa);
+  //LoRa_init(&myLoRa);
 
   /* USER CODE END 2 */
 
@@ -168,12 +171,15 @@ int main(void)
 
   osThreadId spiTaskHandle;
   osThreadId loraTaskHandle;
-  //void SPI_Send(uint8_t *data, uint16_t length);
+  osThreadId LEDTaskHandle;
+  void SPI_Send(uint8_t *data, uint16_t length);
+  osThreadDef(ledTask, StartLEDTask, osPriorityLow, 0, 128);
+  LEDTaskHandle = osThreadCreate(osThread(ledTask), NULL);
 
   osThreadDef(spiTask, StartSPITask, osPriorityNormal, 0, 128);
   spiTaskHandle = osThreadCreate(osThread(spiTask), NULL);
-  osThreadDef(loraTask, StartLoRaSendTask, osPriorityNormal, 0, 128);
-  loraTaskHandle = osThreadCreate(osThread(loraTask), NULL);
+  //osThreadDef(loraTask, StartLoRaSendTask, osPriorityNormal, 0, 128);
+  //loraTaskHandle = osThreadCreate(osThread(loraTask), NULL);
 
   /* USER CODE END RTOS_THREADS */
 
@@ -493,55 +499,70 @@ void StartSPITask(void const * argument)
 {
   for(;;)
   {
+	// Lock mutex before reading and sending packet
+	osMutexWait(SPIMutexHandle, osWaitForever);
+
     uint8_t packet[] = {0x7E, 0x01, 0x02, 0x03};
 
     SPI_Send_Packet(packet, sizeof(packet));
 
+    // release mutex
+    osMutexRelease(SPIMutexHandle);
     osDelay(1000);
   }
 }
 
-void StartLoRaSendTask(void const * argument)
+void StartLEDTask(void const * argument)
 {
-    uint16_t LoRa_status = LoRa_init(&myLoRa);
+  const char *msg_on  = "LED ON\r\n";
+  const char *msg_off = "LED OFF\r\n";
 
-    if (LoRa_status != LORA_OK)
-    {
-        char err_msg[100];
-        snprintf(err_msg, sizeof(err_msg), "\n\r LoRa init failed! Code: %d \n\r", LoRa_status);
-        HAL_UART_Transmit(&huart1, (uint8_t*)err_msg, strlen(err_msg), 200);
-        vTaskDelete(NULL); // stop the task
-    }
+  for (;;)
+  {
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg_on, strlen(msg_on), 100);
+    osDelay(800);
 
-    for (;;)
-    {
-        // Lock mutex before reading buffer
-        osMutexWait(LoRaMutexHandle, osWaitForever);
-
-        // Send the buffer content
-        LoRa_transmit(&myLoRa, (uint8_t*)LoRa_send_buffer, strlen(LoRa_send_buffer), 100);
-
-        osMutexRelease(LoRaMutexHandle);
-
-        osDelay(1000); // send every 1 second
-    }
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg_off, strlen(msg_off), 100);
+    osDelay(1500);
+  }
 }
 
-void UpdateLoRaPayload(const char* msg)
-{
-    osMutexWait(LoRaMutexHandle, osWaitForever);
-    strncpy(LoRa_send_buffer, msg, LORA_MAX_MSG-1);
-    LoRa_send_buffer[LORA_MAX_MSG-1] = '\0'; // ensure null-terminated
-    osMutexRelease(LoRaMutexHandle);
-}
+//void StartLoRaSendTask(void const * argument)
+//{RHAL_UART_Transmit(&huart1, (uint8_t*)err_msg, strlen(err_msg), 200);
+//        vTaskDelete(NULL); // stop the task
+//    }
+//
+//    for (;;)
+//    {
+//        // Lock mutex before reading buffer
+//        osMutexWait(LoRaMutexHandle, osWaitForever);
+//
+//        // Send the buffer content
+//        LoRa_transmit(&myLoRa, (uint8_t*)LoRa_send_buffer, strlen(LoRa_send_buffer), 100);
+//
+//        osMutexRelease(LoRaMutexHandle);
+//
+//        osDelay(1000); // send every 1 second
+//    }
+//}
 
+//void UpdateLoRaPayload(const char* msg)
+//{
+//    osMutexWait(LoRaMutexHandle, osWaitForever);
+//    strncpy(LoRa_send_buffer, msg, LORA_MAX_MSG-1);
+//    LoRa_send_buffer[LORA_MAX_MSG-1] = '\0'; // ensure null-terminated
+//    osMutexRelease(LoRaMutexHandle);
+//}
+//
 void SPI_Send_Packet(uint8_t *data, uint16_t length)
 {
-  CS_LOW();
+  //CS_LOW();
 
   HAL_SPI_Transmit(&hspi1, data, length, HAL_MAX_DELAY);
 
-  CS_HIGH();
+  //CS_HIGH();
 }
 
 
