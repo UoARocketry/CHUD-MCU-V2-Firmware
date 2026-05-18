@@ -18,15 +18,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "lora.h"
 #include "cmsis_os.h"
 #include "fatfs.h"
-#include <stdio.h>
-#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lora.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,16 +57,18 @@ LoRa myLoRa;
 char LoRa_send_buffer[LORA_MAX_MSG];
 osMutexId LoRaMutexHandle;
 osMutexId SPIMutexHandle;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_SPI3_Init(void);
+static void MX_SPI1_Init(void);
 void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
@@ -83,7 +82,8 @@ void UpdateLoRaPayload(const char* msg);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
- // #define CS_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
+#define CS_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
+#define CS_HIGH()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
 
 
 //Lora Stuff
@@ -120,12 +120,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_FATFS_Init();
   MX_TIM3_Init();
   MX_SPI3_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   osMutexDef(SPIMutex);
   SPIMutexHandle = osMutexCreate(osMutex(SPIMutex));
@@ -176,7 +176,7 @@ int main(void)
   osThreadDef(ledTask, StartLEDTask, osPriorityLow, 0, 128);
   LEDTaskHandle = osThreadCreate(osThread(ledTask), NULL);
 
-  osThreadDef(spiTask, StartSPITask, osPriorityNormal, 0, 128);
+  osThreadDef(spiTask, StartSPITask, osPriorityNormal, 0, 512);
   spiTaskHandle = osThreadCreate(osThread(spiTask), NULL);
   //osThreadDef(loraTask, StartLoRaSendTask, osPriorityNormal, 0, 128);
   //loraTaskHandle = osThreadCreate(osThread(loraTask), NULL);
@@ -268,7 +268,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -455,6 +455,9 @@ static void MX_GPIO_Init(void)
                           |GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|Onboard_LED_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
                           |GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
 
@@ -479,6 +482,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : PA4 Onboard_LED_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|Onboard_LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /*Configure GPIO pins : PB0 PB12 PB13 PB14
                            PB4 PB5 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
@@ -488,6 +498,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : ESP_READY_Pin */
+  GPIO_InitStruct.Pin = ESP_READY_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(ESP_READY_GPIO_Port, &GPIO_InitStruct);
+
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   /* USER CODE END MX_GPIO_Init_2 */
@@ -495,16 +511,18 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 // CONOPS TASKS
-void StartSPITask(void const * argument)
-{
-  for(;;)
-  {
+void StartSPITask(void const * argument){
+	static uint8_t tx_packet[4] = {0x7E, 0x01, 0x02, 0x03};
+
+	for(;;)
+	{
+
 	// Lock mutex before reading and sending packet
 	osMutexWait(SPIMutexHandle, osWaitForever);
 
-    uint8_t packet[] = {0x7E, 0x01, 0x02, 0x03};
+//    uint8_t packet[] = {0x7E, 0x01, 0x02, 0x03};
 
-    SPI_Send_Packet(packet, sizeof(packet));
+    SPI_Send_Packet(tx_packet, 4);
 
     // release mutex
     osMutexRelease(SPIMutexHandle);
@@ -556,13 +574,21 @@ void StartLEDTask(void const * argument)
 //    osMutexRelease(LoRaMutexHandle);
 //}
 //
-void SPI_Send_Packet(uint8_t *data, uint16_t length)
-{
-  //CS_LOW();
+void SPI_Send_Packet(uint8_t *data, uint16_t length){
+	uint32_t timeout = HAL_GetTick() + 500;
 
-  HAL_SPI_Transmit(&hspi1, data, length, HAL_MAX_DELAY);
+	  // Wait for Handshake
+	while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1) == GPIO_PIN_RESET)
+	{
+		if (HAL_GetTick() > timeout) {
+			return; // Abort on timeout
+			}
+		osDelay(1);
+	}
 
-  //CS_HIGH();
+	CS_LOW();
+	HAL_SPI_Transmit(&hspi1, data, length, HAL_MAX_DELAY);
+	CS_HIGH();
 }
 
 

@@ -6,9 +6,9 @@
 ../Core/Src/main.c:374:13:MX_USART1_UART_Init	2
 ../Core/Src/main.c:407:13:MX_USART2_UART_Init	2
 ../Core/Src/main.c:440:13:MX_GPIO_Init	1
-../Core/Src/main.c:498:6:StartSPITask	1
-../Core/Src/main.c:515:6:StartLEDTask	1
-../Core/Src/main.c:559:6:SPI_Send_Packet	1
-../Core/Src/main.c:578:6:StartDefaultTask	1
-../Core/Src/main.c:597:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:615:6:Error_Handler	1
+../Core/Src/main.c:514:6:StartSPITask	1
+../Core/Src/main.c:533:6:StartLEDTask	1
+../Core/Src/main.c:577:6:SPI_Send_Packet	3
+../Core/Src/main.c:604:6:StartDefaultTask	1
+../Core/Src/main.c:623:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:641:6:Error_Handler	1

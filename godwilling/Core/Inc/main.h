@@ -54,24 +54,26 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
+#define Onboard_LED_Pin GPIO_PIN_5
+#define Onboard_LED_GPIO_Port GPIOA
+#define ESP_READY_Pin GPIO_PIN_1
+#define ESP_READY_GPIO_Port GPIOB
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
-#define SWO_Pin GPIO_PIN_3
-#define SWO_GPIO_Port GPIOB
+
+/* USER CODE BEGIN Private defines */
 #define NSS_GPIO_Port GPIOA;
 #define NSS_Pin GPIO_PIN_13;
 #define RESET_GPIO_Port GPIOB
 #define RESET_Pin GPIO_PIN_5;
 #define DIO0_GPIO_Port GPIOB;
 #define DIO0_Pin GPIO_PIN_4;
-
-/* USER CODE BEGIN Private defines */
-
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
