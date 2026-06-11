@@ -1,5 +1,5 @@
-12:33:02 **** Incremental Build of configuration Debug for project godwilling ****
-make -j12 all 
+18:37:15 **** Incremental Build of configuration Debug for project godwilling ****
+make -j20 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 In file included from ../Core/Src/main.c:26:
 ../Core/Inc/lora.h:1:1: warning: multi-line comment [-Wcomment]
@@ -38,14 +38,17 @@ In file included from ../Core/Src/main.c:26:
 ../Core/Src/main.c:525:5: note: previous implicit declaration of 'SPI_Send_Packet' with type 'void(uint8_t *, uint16_t)' {aka 'void(unsigned char *, short unsigned int)'}
   525 |     SPI_Send_Packet(tx_packet, 4);
       |     ^~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mailm\Desktop\localsh1\Projects\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\UNIVERSITY\Rocketry\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: godwilling.elf
  
 arm-none-eabi-size  godwilling.elf 
+arm-none-eabi-objdump -h -S godwilling.elf  > "godwilling.list"
    text	   data	    bss	    dec	    hex	filename
-  25200	    120	  18800	  44120	   ac58	godwilling.elf
+  25216	    120	  18800	  44136	   ac68	godwilling.elf
 Finished building: default.size.stdout
  
+Finished building: godwilling.list
+ 
 
-12:33:03 Build Finished. 0 errors, 8 warnings. (took 1s.21ms)
+18:37:16 Build Finished. 0 errors, 8 warnings. (took 976ms)
 

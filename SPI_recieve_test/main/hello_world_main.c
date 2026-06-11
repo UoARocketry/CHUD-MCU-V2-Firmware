@@ -88,12 +88,12 @@ void app_main(void)
     //Configure handshake line as output
     gpio_config(&io_conf);
     //Enable pull-ups on SPI lines so we don't detect rogue pulses when no master is connected.
-    gpio_set_pull_mode(GPIO_MOSI, GPIO_PULLUP_ONLY);
-    gpio_set_pull_mode(GPIO_SCLK, GPIO_PULLUP_ONLY);
+    gpio_set_pull_mode(GPIO_MOSI, GPIO_PULLDOWN_ONLY);
+    gpio_set_pull_mode(GPIO_SCLK, GPIO_PULLDOWN_ONLY);
     gpio_set_pull_mode(GPIO_CS, GPIO_PULLUP_ONLY);
 
     //Initialize SPI slave interface
-    ret = spi_slave_initialize(RCV_HOST, &buscfg, &slvcfg, SPI_DMA_CH_AUTO);
+    ret = spi_slave_initialize(RCV_HOST, &buscfg, &slvcfg, SPI_DMA_DISABLED);
     assert(ret == ESP_OK);
 
     
@@ -114,7 +114,8 @@ void app_main(void)
         ret = spi_slave_transmit(RCV_HOST, &t, portMAX_DELAY);
 
         // Print the first 4 bytes to verify your payload arrived
-        printf("\nReceived: %02X %02X %02X %02X...\n", recvbuf[0], recvbuf[1], recvbuf[2], recvbuf[3]);
+        printf("Received %d bits: %02X %02X %02X %02X\n", (int)t.trans_len,
+            recvbuf[0], recvbuf[1], recvbuf[2], recvbuf[3]); 
 
         // (Optional: You can leave your sleep/pause logic here if you want)
     }

@@ -9,6 +9,6 @@
 ../Core/Src/main.c:514:6:StartSPITask	1
 ../Core/Src/main.c:533:6:StartLEDTask	1
 ../Core/Src/main.c:577:6:SPI_Send_Packet	3
-../Core/Src/main.c:604:6:StartDefaultTask	1
-../Core/Src/main.c:623:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:641:6:Error_Handler	1
+../Core/Src/main.c:605:6:StartDefaultTask	1
+../Core/Src/main.c:624:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:642:6:Error_Handler	1

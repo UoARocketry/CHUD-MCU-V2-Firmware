@@ -578,10 +578,9 @@ void SPI_Send_Packet(uint8_t *data, uint16_t length){
 	uint32_t timeout = HAL_GetTick() + 500;
 
 	  // Wait for Handshake
-	while(HAL_GPIO_ReadPin(ESP_READY_GPIO_Port, ESP_READY_Pin) == GPIO_PIN_RESET)
+	while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1) == GPIO_PIN_RESET)
 	{
 		if (HAL_GetTick() > timeout) {
-			CS_HIGH();
 			return; // Abort on timeout
 			}
 		osDelay(1);
@@ -589,6 +588,7 @@ void SPI_Send_Packet(uint8_t *data, uint16_t length){
 
 	CS_LOW();
 	HAL_SPI_Transmit(&hspi1, data, length, HAL_MAX_DELAY);
+	osDelay(1);
 	CS_HIGH();
 }
 
