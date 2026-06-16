@@ -40,6 +40,8 @@ sending a transaction. As soon as the transaction is done, the line gets set low
 #define GPIO_MISO           12
 #define GPIO_SCLK           14
 #define GPIO_CS             15
+#define IS_TRANSMITTING     1
+#define IS_RECEIVING        0
 
 //Called after a transaction is queued and ready for pickup by master. We use this to set the handshake line high.
 void my_post_setup_cb(spi_slave_transaction_t *trans)
@@ -97,26 +99,50 @@ void app_main(void)
     assert(ret == ESP_OK);
 
     
-    char *recvbuf = spi_bus_dma_memory_alloc(RCV_HOST, 4, 0);
-    assert(recvbuf);
+    char *sendbuf = spi_bus_dma_memory_alloc(RCV_HOST, 4, 0);
+    assert(sendbuf);
     
     spi_slave_transaction_t t = {0};
 
     while (1) {
-        memset(recvbuf, 0, 4);
 
-        // 2. Configure for Receive-Only
-        t.length = 4 * 8;
-        t.rx_buffer = recvbuf;
-        t.tx_buffer = NULL; // <-- CRITICAL: Tells the ESP32 not to transmit anything
+        if (IS_RECEIVING) {
+            char recvbuf[4];
+            memset(recvbuf, 0, sizeof(recvbuf));
+            t.length = 4 * 8; //transaction length is in bits.
+            t.tx_buffer = NULL;
+            t.rx_buffer = recvbuf;
 
-        // 3. The post_setup_cb still fires automatically here, raising the handshake pin
-        ret = spi_slave_transmit(RCV_HOST, &t, portMAX_DELAY);
+            // 3. The post_setup_cb still fires automatically here, raising the handshake pin
+            ret = spi_slave_transmit(RCV_HOST, &t, portMAX_DELAY);
+            
+            // Print the first 4 bytes to verify your payload arrived
+            printf("Received %d bits: %02X %02X %02X %02X\n", (int)t.trans_len,
+                recvbuf[0], recvbuf[1], recvbuf[2], recvbuf[3]);
+        }
+        else if (IS_TRANSMITTING) {
+            sendbuf[0] = 0xDE;
+            sendbuf[1] = 0xAD;
+            sendbuf[2] = 0xBE;
+            sendbuf[3] = 0xEF;
+            t.length = 4 * 8;
+            t.tx_buffer = sendbuf;
+            t.rx_buffer = NULL;
+            // 3. The post_setup_cb still fires automatically here, raising the handshake pin
+            ret = spi_slave_transmit(RCV_HOST, &t, portMAX_DELAY);
 
-        // Print the first 4 bytes to verify your payload arrived
-        printf("Received %d bits: %02X %02X %02X %02X\n", (int)t.trans_len,
-            recvbuf[0], recvbuf[1], recvbuf[2], recvbuf[3]); 
+            // // Print the first 4 bytes to verify your payload arrived
+            // printf("Received %d bits: %02X %02X %02X %02X\n", (int)t.trans_len,
+            //     recvbuf[0], recvbuf[1], recvbuf[2], recvbuf[3]); 
+
+            printf("Transmitted %d bits: %02X %02X %02X %02X\n", (int)t.trans_len,
+            sendbuf[0], sendbuf[1], sendbuf[2], sendbuf[3]);
+        }
+
+        
 
         // (Optional: You can leave your sleep/pause logic here if you want)
+        vTaskDelay(pdMS_TO_TICKS(100));
+
     }
 }
