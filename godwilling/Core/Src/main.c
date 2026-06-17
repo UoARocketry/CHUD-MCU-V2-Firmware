@@ -20,6 +20,8 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "fatfs.h"
+#include <stdio.h>
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -73,7 +75,8 @@ void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 //void SPI_Send_Packet(uint8_t *data, uint16_t length);
-void StartSPITask(void const * argument);
+void StartSPISendTask(void const * argument);
+void StartSPIRecvTask(void const * argument);
 //void StartLoRaSendTask(void const * argument);
 void StartLEDTask(void const * argument);
 void UpdateLoRaPayload(const char* msg);
@@ -82,9 +85,8 @@ void UpdateLoRaPayload(const char* msg);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#define CS_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
-#define CS_HIGH()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
-
+#define CS_SEND_LOW()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
+#define CS_SEND_HIGH()  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
 
 //Lora Stuff
 
@@ -107,7 +109,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  setvbuf(stdout, NULL, _IONBF, 0); // instant printing (?)
 
   /* USER CODE END Init */
 
@@ -169,15 +171,20 @@ int main(void)
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
 
-  osThreadId spiTaskHandle;
+  osThreadId spiSendTaskHandle;
+  osThreadId spiRecvTaskHandle;
   osThreadId loraTaskHandle;
   osThreadId LEDTaskHandle;
   void SPI_Send(uint8_t *data, uint16_t length);
   osThreadDef(ledTask, StartLEDTask, osPriorityLow, 0, 128);
   LEDTaskHandle = osThreadCreate(osThread(ledTask), NULL);
 
-  osThreadDef(spiTask, StartSPITask, osPriorityNormal, 0, 512);
-  spiTaskHandle = osThreadCreate(osThread(spiTask), NULL);
+  osThreadDef(spiSendTask, StartSPISendTask, osPriorityNormal, 0, 512);
+  spiSendTaskHandle = osThreadCreate(osThread(spiSendTask), NULL);
+
+  osThreadDef(spiRecvTask, StartSPIRecvTask, osPriorityHigh, 0, 512);
+  spiSendTaskHandle = osThreadCreate(osThread(spiRecvTask), NULL);
+
   //osThreadDef(loraTask, StartLoRaSendTask, osPriorityNormal, 0, 128);
   //loraTaskHandle = osThreadCreate(osThread(loraTask), NULL);
 
@@ -510,8 +517,15 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+int _write(int file, char *ptr, int len) {
+    // Send data to huart2 (the one you initialized in MX_USART2_UART_Init)
+    HAL_UART_Transmit(&huart2, (uint8_t *)ptr, len, HAL_MAX_DELAY);
+    return len;
+}
+
 // CONOPS TASKS
-void StartSPITask(void const * argument){
+void StartSPISendTask(void const * argument){
 	static uint8_t tx_packet[4] = {0x7E, 0x01, 0x02, 0x03};
 
 	for(;;)
@@ -528,6 +542,23 @@ void StartSPITask(void const * argument){
     osMutexRelease(SPIMutexHandle);
     osDelay(1000);
   }
+}
+
+void StartSPIRecvTask(void const * argument){
+	static uint8_t rx_packet[4];
+
+	for(;;)
+	{
+		osMutexWait(SPIMutexHandle, osWaitForever);
+
+		SPI_Recv_Packet(rx_packet, 4);
+
+
+		// Print the data
+		printf("Received: %02X %02X %02X %02X\r\n", rx_packet[0], rx_packet[1], rx_packet[2], rx_packet[3]);
+		osMutexRelease(SPIMutexHandle);
+		osDelay(1000);
+	}
 }
 
 void StartLEDTask(void const * argument)
@@ -581,15 +612,19 @@ void SPI_Send_Packet(uint8_t *data, uint16_t length){
 	while(HAL_GPIO_ReadPin(ESP_READY_GPIO_Port, ESP_READY_Pin) == GPIO_PIN_RESET)
 	{
 		if (HAL_GetTick() > timeout) {
-			CS_HIGH();
+			CS_SEND_HIGH();
 			return; // Abort on timeout
 			}
 		osDelay(1);
 	}
 
-	CS_LOW();
+	CS_SEND_LOW();
 	HAL_SPI_Transmit(&hspi1, data, length, HAL_MAX_DELAY);
-	CS_HIGH();
+	CS_SEND_HIGH();
+}
+
+void SPI_Recv_Packet(uint8_t *data, uint16_t length){
+	HAL_SPI_Receive(&hspi3, data, length, HAL_MAX_DELAY);
 }
 
 

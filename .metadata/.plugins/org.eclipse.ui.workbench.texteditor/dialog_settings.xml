@@ -3,7 +3,17 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
-		<item value="GPIO_READ"/>
+		<item value="esp_ready"/>
+		<item value="MX_GPIO_Init"/>
+		<item value="HAL_GPIO_Write"/>
+		<item value="StartSPI"/>
+		<item value="HAL_SPI"/>
+		<item value="StartSPITask"/>
+		<item value="SPI_Send_Packet"/>
+		<item value="HAL_SPI_Transmit"/>
 		<item value="SPI_Send"/>
+		<item value="spiTask"/>
+		<item value="spi"/>
+		<item value="GPIO_READ"/>
 	</list>
 </section>
