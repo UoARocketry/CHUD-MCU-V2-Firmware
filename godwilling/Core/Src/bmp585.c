@@ -70,6 +70,12 @@ HAL_StatusTypeDef BMP585_Init(void)
 {
     uint8_t val;
 
+    /* 0. Force SPI mode: dummy read, ignore the result --------------------- */
+
+	uint8_t dummy;
+
+	reg_read(BMP585_REG_CHIP_ID, &dummy, 1);
+
     /* 1. Soft reset ------------------------S-------------------------------- */
     reg_write(BMP585_REG_CMD, BMP585_CMD_SOFT_RESET);
     HAL_Delay(5);   /* datasheet: wait ≥ 2 ms after reset */

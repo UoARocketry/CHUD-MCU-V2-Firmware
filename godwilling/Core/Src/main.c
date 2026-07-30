@@ -21,6 +21,8 @@
 #include "cmsis_os.h"
 #include "fatfs.h"
 
+#include "stm32f4xx_hal.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -33,6 +35,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define LED1_PIN        GPIO_PIN_15
+#define LED1_GPIO_PORT  GPIOA
+
 
 /* USER CODE END PD */
 
@@ -69,6 +74,24 @@ void StartDefaultTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+// test code for flashing LED
+
+static void LED_GPIO_Init(void)
+{
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    GPIO_InitStruct.Pin   = LED1_PIN;
+    GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull  = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStruct);
+
+    HAL_GPIO_WritePin(LED1_GPIO_PORT, LED1_PIN, GPIO_PIN_RESET);
+}
+
 
 /* USER CODE END 0 */
 
@@ -107,6 +130,7 @@ int main(void)
   MX_FATFS_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+  LED_GPIO_Init();
 
   /* USER CODE END 2 */
 
@@ -145,6 +169,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
+	  HAL_Delay(500);
 
     /* USER CODE BEGIN 3 */
   }
@@ -402,7 +428,7 @@ static void MX_GPIO_Init(void)
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   /* USER CODE END MX_GPIO_Init_2 */
-}
+
 
 /* USER CODE BEGIN 4 */
 
