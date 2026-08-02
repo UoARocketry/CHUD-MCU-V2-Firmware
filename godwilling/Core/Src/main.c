@@ -55,6 +55,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 osThreadId defaultTaskHandle;
+osThreadId ledFlashTaskHandle;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -67,7 +68,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM3_Init(void);
 void StartDefaultTask(void const * argument);
-
+void StartledFlashTask(void const * argument);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -155,6 +156,10 @@ int main(void)
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
+  osThreadDef(ledFlashTask, StartledFlashTask, osPriorityNormal, 0, 128);
+  ledFlashTaskHandle = osThreadCreate(osThread(ledFlashTask), NULL);
+
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -169,8 +174,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
-	  HAL_Delay(500);
+
 
     /* USER CODE BEGIN 3 */
   }
@@ -228,6 +232,18 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
+
+void StartledFlashTask(void const * argument)
+{
+  /* USER CODE BEGIN 5 */
+  for(;;)
+  {
+    HAL_GPIO_TogglePin(LED1_GPIO_PORT, LED1_PIN);
+    osDelay(500);          // <-- osDelay, not HAL_Delay
+  }
+  /* USER CODE END 5 */
+}
+
 static void MX_SPI1_Init(void)
 {
 
@@ -428,7 +444,7 @@ static void MX_GPIO_Init(void)
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   /* USER CODE END MX_GPIO_Init_2 */
-
+}
 
 /* USER CODE BEGIN 4 */
 
