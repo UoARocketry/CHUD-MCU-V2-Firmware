@@ -1,0 +1,13 @@
+/*
+ * adxl.h
+ *
+ *  Created on: Aug 8, 2026
+ *      Author: crook
+ */
+
+#ifndef BSP_ADXL314_ADXL314_H_
+#define BSP_ADXL314_ADXL314_H_
+
+
+
+#endif /* BSP_ADXL314_ADXL314_H_ */
