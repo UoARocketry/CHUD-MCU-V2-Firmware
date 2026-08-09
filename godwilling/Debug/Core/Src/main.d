@@ -33,7 +33,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FatFs/src/diskio.h \
  ../Middlewares/Third_Party/FatFs/src/ff.h ../FATFS/Target/user_diskio.h \
  ../Drivers/BSP/BMP585/bmp585.h ../Drivers/BSP/Ra02/ra02.h \
- ../Drivers/BSP/ADXL314/adxl314.h
+ ../Drivers/BSP/ADXL314/adxl314.h ../Drivers/BSP/IMU/imu.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -74,3 +74,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/BSP/BMP585/bmp585.h:
 ../Drivers/BSP/Ra02/ra02.h:
 ../Drivers/BSP/ADXL314/adxl314.h:
+../Drivers/BSP/IMU/imu.h:

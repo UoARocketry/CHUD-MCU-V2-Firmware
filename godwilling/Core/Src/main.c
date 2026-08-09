@@ -25,6 +25,7 @@
 #include "bmp585.h"
 #include "ra02.h"
 #include "adxl314.h"
+#include "imu.h"
 
 /* USER CODE END Includes */
 
@@ -103,7 +104,7 @@ int main(void)
   MX_TIM3_Init();
   MX_SPI3_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t devid = 0;
+  uint8_t imu_who_am_i = 0;
 
   /* USER CODE END 2 */
 
@@ -111,7 +112,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  devid = ADXL314_ReadReg(0x00); // DEVID, expect 0xE5
+	  imu_who_am_i = IMU_ReadReg(0x0F); // WHO_AM_I, expect 0x6C
 	  HAL_Delay(100);
     /* USER CODE END WHILE */
 
@@ -299,13 +300,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, BMP_CS_Pin|ADXL_CS_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, BMP_CS_Pin|IMU_CS_Pin|ADXL_CS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LORA_CS_GPIO_Port, LORA_CS_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : BMP_CS_Pin ADXL_CS_Pin */
-  GPIO_InitStruct.Pin = BMP_CS_Pin|ADXL_CS_Pin;
+  /*Configure GPIO pins : BMP_CS_Pin IMU_CS_Pin ADXL_CS_Pin */
+  GPIO_InitStruct.Pin = BMP_CS_Pin|IMU_CS_Pin|ADXL_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
