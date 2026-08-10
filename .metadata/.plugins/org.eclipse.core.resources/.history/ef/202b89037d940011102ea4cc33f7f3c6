@@ -7,8 +7,6 @@
 
 #include "adxl314.h"
 
-#define ADXL314_SCALE_FACTOR 0.04883f // g/LSB, from datasheet (48.83 mg/LSB)
-
 extern SPI_HandleTypeDef hspi1; // shared bus with BMP585
 
 uint8_t ADXL314_ReadReg(uint8_t reg_addr)
@@ -41,13 +39,4 @@ void ADXL314_ReadAccel(ADXL314_Data_t* data)
   data->x_g = raw_x * ADXL314_SCALE_FACTOR;
   data->y_g = raw_y * ADXL314_SCALE_FACTOR;
   data->z_g = raw_z * ADXL314_SCALE_FACTOR;
-}
-
-void ADXL314_Init(void)
-{
-  uint8_t tx_buffer[2] = {0x2D, 0x08}; // POWER_CTL register, Measure bit set
-
-  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
-  HAL_SPI_Transmit(&hspi1, tx_buffer, 2, HAL_MAX_DELAY);
-  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_SET);
 }

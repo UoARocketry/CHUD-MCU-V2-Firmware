@@ -120,8 +120,7 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
-  ADXL314_Data_t accel_data;
-  ADXL314_Init();
+  uint8_t devid = 0;
 
   /* USER CODE END 2 */
 
@@ -129,8 +128,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  ADXL314_ReadAccel(&accel_data);
-	  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+	  devid = ADXL314_ReadReg(0x00);
+	  printf(devid);
 	  HAL_Delay(100);
 
 

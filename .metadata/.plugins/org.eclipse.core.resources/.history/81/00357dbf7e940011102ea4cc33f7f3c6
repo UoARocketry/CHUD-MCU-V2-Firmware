@@ -121,7 +121,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
   ADXL314_Data_t accel_data;
-  ADXL314_Init();
 
   /* USER CODE END 2 */
 

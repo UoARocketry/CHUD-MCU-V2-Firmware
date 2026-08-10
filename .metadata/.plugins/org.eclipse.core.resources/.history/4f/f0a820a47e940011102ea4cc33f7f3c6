@@ -42,12 +42,3 @@ void ADXL314_ReadAccel(ADXL314_Data_t* data)
   data->y_g = raw_y * ADXL314_SCALE_FACTOR;
   data->z_g = raw_z * ADXL314_SCALE_FACTOR;
 }
-
-void ADXL314_Init(void)
-{
-  uint8_t tx_buffer[2] = {0x2D, 0x08}; // POWER_CTL register, Measure bit set
-
-  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
-  HAL_SPI_Transmit(&hspi1, tx_buffer, 2, HAL_MAX_DELAY);
-  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_SET);
-}
