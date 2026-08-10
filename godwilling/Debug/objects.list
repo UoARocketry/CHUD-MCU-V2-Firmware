@@ -8,6 +8,7 @@
 "./Core/Startup/startup_stm32f411retx.o"
 "./Drivers/BSP/ADXL314/adxl314.o"
 "./Drivers/BSP/BMP585/bmp585.o"
+"./Drivers/BSP/GNSS/gnss.o"
 "./Drivers/BSP/IMU/imu.o"
 "./Drivers/BSP/Ra02/ra02.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"

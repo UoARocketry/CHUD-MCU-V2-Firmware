@@ -26,6 +26,7 @@ Core/Src \
 Core/Startup \
 Drivers/BSP/ADXL314 \
 Drivers/BSP/BMP585 \
+Drivers/BSP/GNSS \
 Drivers/BSP/IMU \
 Drivers/BSP/Ra02 \
 Drivers/STM32F4xx_HAL_Driver/Src \

@@ -1,0 +1,53 @@
+/*
+ * gnss.c
+ *
+ *  Created on: Aug 10, 2026
+ *      Author: crook
+ */
+
+
+#include "gnss.h"
+
+extern UART_HandleTypeDef huart1;
+
+static uint8_t gnss_buffer[GNSS_BUFFER_SIZE];
+static uint8_t gnss_index = 0;
+
+void GNSS_Init(void)
+{
+  gnss_index = 0;
+}
+
+uint8_t GNSS_Poll(void)
+{
+  uint8_t gnss_byte = 0;
+  HAL_StatusTypeDef status = HAL_UART_Receive(&huart1, &gnss_byte, 1, 1000);
+
+  if (status != HAL_OK)
+  {
+    return 0;
+  }
+
+  if (gnss_byte == '$')
+  {
+    gnss_index = 0;
+  }
+
+  if (gnss_index < GNSS_BUFFER_SIZE - 1)
+  {
+    gnss_buffer[gnss_index++] = gnss_byte;
+  }
+
+  if (gnss_byte == '\n')
+  {
+    gnss_buffer[gps_index] = '\0';
+    return 1;
+  }
+
+  return 0;
+}
+
+const char* GNSS_GetSentence(void)
+{
+  return (const char*)gps_buffer;
+}

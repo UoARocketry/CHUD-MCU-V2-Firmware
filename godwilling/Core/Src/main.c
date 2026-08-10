@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "fatfs.h"
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -26,6 +27,7 @@
 #include "ra02.h"
 #include "adxl314.h"
 #include "imu.h"
+#include "gnss.h"
 
 /* USER CODE END Includes */
 
@@ -70,6 +72,15 @@ static void MX_USART1_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+// re assign printf for SWV ITM data console
+int _write(int file, char *ptr, int len)
+{
+  for (int i = 0; i < len; i++)
+  {
+    ITM_SendChar((uint32_t)ptr[i]);
+  }
+  return len;
+}
 
 /* USER CODE END 0 */
 
@@ -108,7 +119,8 @@ int main(void)
   MX_SPI3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  uint8_t gps_byte = 0;
+  printf("Hello\r\n");
+  GNSS_Init();
 
   /* USER CODE END 2 */
 
@@ -116,7 +128,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_StatusTypeDef gps_status = HAL_UART_Receive(&huart1, &gps_byte, 1, 1000);
+	  if (GNSS_Poll())
+	  {
+	    printf("%s", GNSS_GetSentence());
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -334,6 +350,7 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, BMP_CS_Pin|IMU_CS_Pin|ADXL_CS_Pin, GPIO_PIN_SET);
