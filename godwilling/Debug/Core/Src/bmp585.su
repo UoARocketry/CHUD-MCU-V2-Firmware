@@ -1,0 +1,9 @@
+../Core/Src/bmp585.c:11:13:spi_write_read	32	static
+../Core/Src/bmp585.c:21:26:reg_read	80	dynamic
+../Core/Src/bmp585.c:38:26:reg_write	24	static
+../Core/Src/bmp585.c:46:14:convert_temperature	24	static
+../Core/Src/bmp585.c:53:14:convert_pressure	24	static
+../Core/Src/bmp585.c:59:14:calculate_altitude	16	static
+../Core/Src/bmp585.c:64:6:BMP585_SetSeaLevelPa	16	static
+../Core/Src/bmp585.c:69:19:BMP585_Init	16	static
+../Core/Src/bmp585.c:107:19:BMP585_ReadData	24	static

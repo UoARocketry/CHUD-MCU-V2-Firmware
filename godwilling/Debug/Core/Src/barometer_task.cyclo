@@ -1,0 +1,3 @@
+../Core/Src/barometer_task.c:33:13:baro_task	2
+../Core/Src/barometer_task.c:74:19:BaroTask_Init	3
+../Core/Src/barometer_task.c:98:15:BaroTask_GetQueue	1

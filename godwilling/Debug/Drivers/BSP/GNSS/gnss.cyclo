@@ -1,0 +1,3 @@
+../Drivers/BSP/GNSS/gnss.c:16:6:GNSS_Init	1
+../Drivers/BSP/GNSS/gnss.c:21:9:GNSS_Poll	5
+../Drivers/BSP/GNSS/gnss.c:50:13:GNSS_GetSentence	1
