@@ -1,3 +1,3 @@
-../Drivers/BSP/ADXL314/adxl314.c:14:9:ADXL314_ReadReg	24	static
-../Drivers/BSP/ADXL314/adxl314.c:27:6:ADXL314_ReadAccel	32	static
-../Drivers/BSP/ADXL314/adxl314.c:46:6:ADXL314_Init	16	static
+../Drivers/BSP/ADXL314/adxl314.c:19:9:ADXL314_ReadReg	24	static
+../Drivers/BSP/ADXL314/adxl314.c:32:6:ADXL314_ReadAccel	32	static
+../Drivers/BSP/ADXL314/adxl314.c:52:6:ADXL314_Init	16	static

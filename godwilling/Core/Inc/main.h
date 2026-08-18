@@ -63,6 +63,12 @@ void Error_Handler(void);
 #define IMU_CS_GPIO_Port GPIOC
 #define ADXL_CS_Pin GPIO_PIN_15
 #define ADXL_CS_GPIO_Port GPIOC
+#define ADXL_INT2_Pin GPIO_PIN_6
+#define ADXL_INT2_GPIO_Port GPIOC
+#define ADXL_INT2_EXTI_IRQn EXTI9_5_IRQn
+#define ADXL_INT1_Pin GPIO_PIN_7
+#define ADXL_INT1_GPIO_Port GPIOC
+#define ADXL_INT1_EXTI_IRQn EXTI9_5_IRQn
 #define LORA_CS_Pin GPIO_PIN_15
 #define LORA_CS_GPIO_Port GPIOA
 #define SPI3_SCK_Pin GPIO_PIN_10

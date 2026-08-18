@@ -9,6 +9,11 @@
 
 #define ADXL314_SCALE_FACTOR 0.04883f // g/LSB, from datasheet (48.83 mg/LSB)
 
+// measured with board flat and still, calibrating for factory error
+#define ADXL314_BIAS_X -0.90f
+#define ADXL314_BIAS_Y -0.75f
+#define ADXL314_BIAS_Z  0.21f
+
 extern SPI_HandleTypeDef hspi1; // shared bus with BMP585
 
 uint8_t ADXL314_ReadReg(uint8_t reg_addr)
@@ -34,20 +39,28 @@ void ADXL314_ReadAccel(ADXL314_Data_t* data)
   HAL_SPI_Receive(&hspi1, rx_buffer, 6, HAL_MAX_DELAY);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_SET);
 
+  // raw bytes from SPI data read are put into the ADXL314_Data_t data structure
   int16_t raw_x = (int16_t)((rx_buffer[1] << 8) | rx_buffer[0]);
   int16_t raw_y = (int16_t)((rx_buffer[3] << 8) | rx_buffer[2]);
   int16_t raw_z = (int16_t)((rx_buffer[5] << 8) | rx_buffer[4]);
 
-  data->x_g = raw_x * ADXL314_SCALE_FACTOR;
-  data->y_g = raw_y * ADXL314_SCALE_FACTOR;
-  data->z_g = raw_z * ADXL314_SCALE_FACTOR;
+  data->x_g = raw_x * ADXL314_SCALE_FACTOR - ADXL314_BIAS_X;
+  data->y_g = raw_y * ADXL314_SCALE_FACTOR - ADXL314_BIAS_Y;
+  data->z_g = raw_z * ADXL314_SCALE_FACTOR - ADXL314_BIAS_Z;
 }
 
 void ADXL314_Init(void)
 {
-  uint8_t tx_buffer[2] = {0x2D, 0x08}; // POWER_CTL register, Measure bit set
+
+  uint8_t power_ctl[2] = {0x2D, 0x08};     // POWER_CTL: Measure bit
+  uint8_t int_enable[2] = {0x2E, 0x80};    // INT_ENABLE: DATA_READY bit
 
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
-  HAL_SPI_Transmit(&hspi1, tx_buffer, 2, HAL_MAX_DELAY);
+  HAL_SPI_Transmit(&hspi1, power_ctl, 2, HAL_MAX_DELAY);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_SET);
+
+  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit(&hspi1, int_enable, 2, HAL_MAX_DELAY);
+  HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_SET);
+
 }

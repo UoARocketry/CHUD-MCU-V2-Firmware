@@ -1,25 +1,10 @@
-2026-08-10 09:28:17,668 [INFO] Activator:176 - 
+2026-08-19 10:14:57,599 [INFO] Activator:176 - 
 
 
-2026-08-10 09:28:17,675 [INFO] Activator:177 - !SESSION log4j initialized
-2026-08-10 09:28:23,507 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
-2026-08-10 10:23:02,779 [INFO] Activator:176 - 
+2026-08-19 10:14:57,605 [INFO] Activator:177 - !SESSION log4j initialized
+2026-08-19 10:15:02,598 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2026-08-19 11:37:34,612 [INFO] Activator:176 - 
 
 
-2026-08-10 10:23:02,781 [INFO] Activator:177 - !SESSION log4j initialized
-2026-08-10 10:23:08,266 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
-2026-08-10 11:11:56,332 [INFO] Activator:176 - 
-
-
-2026-08-10 11:11:56,334 [INFO] Activator:177 - !SESSION log4j initialized
-2026-08-10 11:12:01,943 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
-2026-08-10 11:57:19,667 [INFO] Activator:176 - 
-
-
-2026-08-10 11:57:19,670 [INFO] Activator:177 - !SESSION log4j initialized
-2026-08-10 11:57:24,802 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
-2026-08-10 16:24:37,813 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=true
-2026-08-10 16:24:55,778 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=false
-2026-08-10 16:25:15,186 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=true
-2026-08-10 16:25:56,589 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=false
-2026-08-10 16:25:58,306 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=true
+2026-08-19 11:37:34,614 [INFO] Activator:177 - !SESSION log4j initialized
+2026-08-19 11:37:40,792 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 

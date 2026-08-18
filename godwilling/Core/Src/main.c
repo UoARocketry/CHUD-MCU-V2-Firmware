@@ -19,10 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "fatfs.h"
-#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "bmp585.h"
 #include "ra02.h"
 #include "adxl314.h"
@@ -55,6 +55,8 @@ TIM_HandleTypeDef htim3;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
+// ADXL data ready variable for interrupt
+volatile uint8_t adxl_data_ready = 0;
 
 /* USER CODE END PV */
 
@@ -120,8 +122,8 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
-  ADXL314_Data_t accel_data;
   ADXL314_Init();
+  ADXL314_Data_t accel_data;
 
   /* USER CODE END 2 */
 
@@ -129,11 +131,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  ADXL314_ReadAccel(&accel_data);
-	  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
-	  HAL_Delay(100);
-
-
+	  if (adxl_data_ready) {
+		  ADXL314_ReadAccel(&accel_data);
+		  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+		  HAL_Delay(100);
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -366,6 +368,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : ADXL_INT2_Pin ADXL_INT1_Pin */
+  GPIO_InitStruct.Pin = ADXL_INT2_Pin|ADXL_INT1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
   /*Configure GPIO pin : LORA_CS_Pin */
   GPIO_InitStruct.Pin = LORA_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -373,12 +381,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LORA_CS_GPIO_Port, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+
+// ADXL interrupt
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == ADXL_INT1_Pin) // substitute your actual macro name from main.h
+  {
+    adxl_data_ready = 1;
+  }
+}
 
 /* USER CODE END 4 */
 
