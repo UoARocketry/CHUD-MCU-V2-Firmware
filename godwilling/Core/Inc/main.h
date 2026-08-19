@@ -71,6 +71,10 @@ void Error_Handler(void);
 #define SPI3_MISO_GPIO_Port GPIOC
 #define SPI3_MOSI_Pin GPIO_PIN_12
 #define SPI3_MOSI_GPIO_Port GPIOC
+#define ARM_Pin GPIO_PIN_5
+#define ARM_GPIO_Port GPIOB
+#define FIRE_Pin GPIO_PIN_6
+#define FIRE_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

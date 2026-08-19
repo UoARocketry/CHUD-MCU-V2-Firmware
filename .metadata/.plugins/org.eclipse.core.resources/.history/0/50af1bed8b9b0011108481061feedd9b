@@ -121,7 +121,6 @@ int main(void)
   printf("Hello\r\n");
   ADXL314_Data_t accel_data;
   ADXL314_Init();
-  HAL_GPIO_WritePin(ARM_GPIO_Port, ARM_Pin, GPIO_PIN_SET);
 
   /* USER CODE END 2 */
 
@@ -132,15 +131,6 @@ int main(void)
 	  ADXL314_ReadAccel(&accel_data);
 	  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
 	  HAL_Delay(100);
-
-	  if (HAL_GPIO_ReadPin(ARM_GPIO_Port, ARM_Pin) == GPIO_PIN_SET){
-		  printf("ARM Pin set to high, setting fire pin to high");
-		  HAL_GPIO_WritePin(FIRE_GPIO_Port, FIRE_Pin, GPIO_PIN_SET);
-	  }
-	  else{
-		  HAL_GPIO_WritePin(FIRE_GPIO_Port, FIRE_Pin, GPIO_PIN_RESET);
-
-	  }
 
 
     /* USER CODE END WHILE */
