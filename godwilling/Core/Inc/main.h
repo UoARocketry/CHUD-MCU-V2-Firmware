@@ -63,6 +63,14 @@ void Error_Handler(void);
 #define IMU_CS_GPIO_Port GPIOC
 #define ADXL_CS_Pin GPIO_PIN_15
 #define ADXL_CS_GPIO_Port GPIOC
+#define SD_MISO_Pin GPIO_PIN_2
+#define SD_MISO_GPIO_Port GPIOC
+#define SD_MOSI_Pin GPIO_PIN_3
+#define SD_MOSI_GPIO_Port GPIOC
+#define SD_SCLK_Pin GPIO_PIN_10
+#define SD_SCLK_GPIO_Port GPIOB
+#define SD_CS_Pin GPIO_PIN_12
+#define SD_CS_GPIO_Port GPIOB
 #define ADXL_INT2_Pin GPIO_PIN_6
 #define ADXL_INT2_GPIO_Port GPIOC
 #define ADXL_INT2_EXTI_IRQn EXTI9_5_IRQn

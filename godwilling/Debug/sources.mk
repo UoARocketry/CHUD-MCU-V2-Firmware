@@ -29,6 +29,7 @@ Drivers/BSP/BMP585 \
 Drivers/BSP/GNSS \
 Drivers/BSP/IMU \
 Drivers/BSP/Ra02 \
+Drivers/BSP/SD \
 Drivers/STM32F4xx_HAL_Driver/Src \
 FATFS/App \
 FATFS/Target \

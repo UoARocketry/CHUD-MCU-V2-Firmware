@@ -1,0 +1,16 @@
+/*
+ * sd.h
+ *
+ *  Created on: Aug 24, 2026
+ *      Author: crook
+ */
+
+#ifndef SD_H
+#define SD_H
+
+#include "main.h"
+
+uint8_t SDLogger_Init(void);
+
+
+#endif /* SD_H */

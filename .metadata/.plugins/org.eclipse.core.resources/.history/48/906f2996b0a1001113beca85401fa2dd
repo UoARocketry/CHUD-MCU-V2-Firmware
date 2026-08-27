@@ -1,0 +1,14 @@
+/*
+ * sd.h
+ *
+ *  Created on: Aug 24, 2026
+ *      Author: crook
+ */
+
+#ifndef BSP_SD_SD_H_
+#define BSP_SD_SD_H_
+
+uint8_t SDLogger_Init(void);
+
+
+#endif /* BSP_SD_SD_H_ */

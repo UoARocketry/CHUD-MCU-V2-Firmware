@@ -1,0 +1,31 @@
+/*
+ * sd.c
+ *
+ *  Created on: Aug 24, 2026
+ *      Author: crook
+ */
+#include "sd.h"
+#include "fatfs.h"
+
+uint8_t SDLogger_Init(void)
+{
+  // force slow prescaler BEFORE any SD-card SPI traffic begins
+  hspi2.Instance->CR1 &= ~SPI_CR1_BR;              // clear existing prescaler bits
+  hspi2.Instance->CR1 |= SPI_BAUDRATEPRESCALER_256; // slow, safely under 400kHz
+
+  FRESULT res = f_mount(&SDFatFS, SDPath, 1); // triggers CMD0/CMD8/ACMD41 sequence at slow speed
+  if (res != FR_OK) return 0;
+
+  // now safe to switch to full speed for normal data transfer
+  hspi2.Instance->CR1 &= ~SPI_CR1_BR;
+  hspi2.Instance->CR1 |= SPI_BAUDRATEPRESCALER_4; // fast, comfortably under 25MHz
+
+  FRESULT open_res = f_open(&log_file, "log.txt", FA_OPEN_APPEND | FA_WRITE);
+  if (open_res != FR_OK) return 0;
+
+  sd_ready = 1;
+  return 1;
+}
+
+
+
