@@ -3,6 +3,7 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="adxl"/>
 		<item value="HAL_GPIO_WritePin"/>
 	</list>
 </section>

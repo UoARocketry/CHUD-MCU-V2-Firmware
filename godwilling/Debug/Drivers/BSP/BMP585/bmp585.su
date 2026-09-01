@@ -1,1 +1,4 @@
-../Drivers/BSP/BMP585/bmp585.c:12:9:BMP585_ReadReg	24	static
+../Drivers/BSP/BMP585/bmp585.c:5:9:BMP585_ReadReg	24	static
+../Drivers/BSP/BMP585/bmp585.c:18:6:BMP585_WriteReg	24	static
+../Drivers/BSP/BMP585/bmp585.c:29:6:BMP585_Init	8	static
+../Drivers/BSP/BMP585/bmp585.c:44:6:BMP585_Extract_Data	40	static
