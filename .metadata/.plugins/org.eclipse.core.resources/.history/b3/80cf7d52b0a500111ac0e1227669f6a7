@@ -123,9 +123,10 @@ int main(void)
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
   ADXL314_Init();
-  ADXL314_Data_t accel_data;
-  BMP585_Data_t pres_temp_data;
-  BMP585_Init();
+  uint8_t IMU_chipID = 0;
+  //ADXL314_Data_t accel_data;
+  //BMP585_Data_t pres_temp_data;
+  //BMP585_Init();
 
   /* USER CODE END 2 */
 
@@ -133,15 +134,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
+	  /*
 	  ADXL314_ReadAccel(&accel_data);
 	  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
 	  uint8_t chipId = BMP585_ReadReg(0x02);
 	  printf("BMP chipId = %i\r\n", chipId);
 	  BMP585_Extract_Data(&pres_temp_data);
 	  printf("TEMP: %.2f, PRES: %.2f\r\n", pres_temp_data.temperature, pres_temp_data.pressure);
+	  */
 
-
+	  IMU_chipID = IMU_ReadReg(0x0F);
+	  printf("chip id = %X \r\n", IMU_chipID);
 	  HAL_Delay(100);
 
     /* USER CODE END WHILE */

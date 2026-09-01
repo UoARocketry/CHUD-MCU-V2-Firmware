@@ -123,6 +123,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
   ADXL314_Init();
+  uint8_t IMU_chipID = 0;
+
   ADXL314_Data_t accel_data;
   BMP585_Data_t pres_temp_data;
   BMP585_Init();
