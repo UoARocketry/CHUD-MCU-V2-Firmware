@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "fatfs.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
@@ -39,6 +40,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+void led_Flash_Task(void *pvParameters);
+void bmp_Task(void *pvParameters);
+osThreadId_t bmpTaskHandle;
+osThreadId_t ledFlashTaskHandle;
 
 /* USER CODE END PD */
 
@@ -64,6 +69,11 @@ const osThreadAttr_t defaultTask_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* USER CODE BEGIN PV */
+const osThreadAttr_t bmpTask_attributes = {
+  .name = "bmpTask",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 // ADXL data ready variable for interrupt
 volatile uint8_t adxl_data_ready = 0;
 
@@ -163,8 +173,11 @@ int main(void)
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  bmpTaskHandle = osThreadNew(bmp_Task, NULL, &bmpTask_attributes);
+  ledFlashTaskHandle = osThreadNew(led_Flash_Task, NULL, &defaultTask_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -486,6 +499,29 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void led_Flash_Task(void *pvParameters){
+	(void)pvParameters;
+    GPIO_PinState led_state;
+	while(1){
+		 HAL_GPIO_TogglePin(LORA_CS_GPIO_Port, LORA_CS_Pin);
+		 led_state = HAL_GPIO_ReadPin(LORA_CS_GPIO_Port, LORA_CS_Pin);
+		 printf("\nLED State: %s\n", led_state == GPIO_PIN_SET ? "ON" : "OFF");
+		 osDelay(500);
+	}
+};
+
+
+void bmp_Task(void *pvParameters){
+	(void)pvParameters;
+    uint8_t chip_id = 0x00;
+	BMP585_ReadReg(0x01);
+	while(1){
+		chip_id = BMP585_ReadReg(0x01);
+		printf("\nChip ID is: 0x%02X\n", chip_id);
+		osDelay(100);
+	}
+}
+
 
 // ADXL interrupt
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)

@@ -1,10 +1,10 @@
-12:53:03 **** Incremental Build of configuration Debug for project godwilling ****
-make -j22 all 
+14:48:05 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
 arm-none-eabi-size  godwilling.elf 
    text	   data	    bss	    dec	    hex	filename
-  29488	    488	   2408	  32384	   7e80	godwilling.elf
+  41164	    492	  21188	  62844	   f57c	godwilling.elf
 Finished building: default.size.stdout
  
 
-12:53:03 Build Finished. 0 errors, 0 warnings. (took 373ms)
+14:48:05 Build Finished. 0 errors, 0 warnings. (took 353ms)
 
