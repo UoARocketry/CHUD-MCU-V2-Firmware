@@ -15,5 +15,6 @@ uint8_t BMP585_ReadReg(uint8_t reg_addr);
 void    BMP585_WriteReg(uint8_t reg_addr, uint8_t data);
 void    BMP585_Init(void);
 void    BMP585_Extract_Data(BMP585_Data_t* data);
+void    BMP585_BurstReadData(uint8_t buff[]);
 
 #endif /* BMP585_H */

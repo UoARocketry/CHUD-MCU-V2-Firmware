@@ -10,9 +10,9 @@
 #define ADXL314_SCALE_FACTOR 0.04883f // g/LSB, from datasheet (48.83 mg/LSB)
 
 // measured with board flat and still, calibrating for factory error
-#define ADXL314_BIAS_X -0.90f
-#define ADXL314_BIAS_Y -0.75f
-#define ADXL314_BIAS_Z  0.21f
+#define ADXL314_BIAS_X -0.674f
+#define ADXL314_BIAS_Y -1.456f
+#define ADXL314_BIAS_Z  -0.261f
 
 extern SPI_HandleTypeDef hspi1; // shared bus with BMP585
 
@@ -49,18 +49,37 @@ void ADXL314_ReadAccel(ADXL314_Data_t* data)
   data->z_g = raw_z * ADXL314_SCALE_FACTOR - ADXL314_BIAS_Z;
 }
 
+// configure the interrupt. By default, INT1 selected for ADXL data ready
+//
+void ADXL_Configure_Int(void){
+
+	uint8_t int_map[2] = {0x2F, 0x00};
+	uint8_t data_format[2] = {0x31, 0x00};
+
+	HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
+	HAL_SPI_Transmit(&hspi1, int_map, 2, HAL_MAX_DELAY);
+	HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
+
+	HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
+	HAL_SPI_Transmit(&hspi1, data_format, 2, HAL_MAX_DELAY);
+	HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
+
+
+}
+
 void ADXL314_Init(void)
 {
 
   uint8_t power_ctl[2] = {0x2D, 0x08};     // POWER_CTL: Measure bit
   uint8_t int_enable[2] = {0x2E, 0x80};    // INT_ENABLE: DATA_READY bit
 
+  //Set bit-3 of the POWER_CTL register (0x2D) to enable measurement mode
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
   HAL_SPI_Transmit(&hspi1, power_ctl, 2, HAL_MAX_DELAY);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_SET);
 
+  //
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_RESET);
   HAL_SPI_Transmit(&hspi1, int_enable, 2, HAL_MAX_DELAY);
   HAL_GPIO_WritePin(ADXL_CS_GPIO_Port, ADXL_CS_Pin, GPIO_PIN_SET);
-
 }

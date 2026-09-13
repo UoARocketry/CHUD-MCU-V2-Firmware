@@ -122,10 +122,14 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
-  ADXL314_Init();
-  ADXL314_Data_t accel_data;
-  BMP585_Data_t pres_temp_data;
   BMP585_Init();
+  uint8_t pres_temp_data[6];
+  BMP585_Data_t pres_temp_real_data;
+  //ADXL314_Init();
+  //ADXL314_Data_t accel_data;
+
+  //GNSS_Init();
+
 
   /* USER CODE END 2 */
 
@@ -134,15 +138,48 @@ int main(void)
   while (1)
   {
 
-	  ADXL314_ReadAccel(&accel_data);
-	  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
-	  uint8_t chipId = BMP585_ReadReg(0x02);
-	  printf("BMP chipId = %i\r\n", chipId);
-	  BMP585_Extract_Data(&pres_temp_data);
-	  printf("TEMP: %.2f, PRES: %.2f\r\n", pres_temp_data.temperature, pres_temp_data.pressure);
+	  //test bmp chip ID with single reg read
+	  //uint8_t bmp_chipID = BMP585_ReadReg(0x01);
+	  //printf("chip id = %X \r\n", bmp_chipID);
 
 
-	  HAL_Delay(100);
+	  //bmp full 6 byte read test
+
+	  /*
+	  BMP585_BurstReadData(pres_temp_data);
+
+	  for (uint8_t i = 0; i < 6; i++) {
+		  printf("%02X \r\n", pres_temp_data[i]);
+	  }
+	  */
+
+	  BMP585_Extract_Data(&pres_temp_real_data);
+	  printf("TEMP: %.2f, PRES: %.2f\r\n", pres_temp_real_data.temperature, pres_temp_real_data.pressure);
+
+
+
+	  // ADXL read chip ID, should be 0xE5
+	  /*
+	  uint8_t adxl_chipID = ADXL314_ReadReg(0x00);
+	  printf("ADXL chip ID = %X \r\n", adxl_chipID);
+	  */
+
+
+	  // ADXL full x,y,z data read (may need calibration factor from new)
+
+	  //ADXL314_ReadAccel(&accel_data);
+	  //printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+
+
+	  /*
+	  if (GNSS_Poll())
+	      {
+	          const char* sentence = GNSS_GetSentence();
+	          printf("%s", sentence);
+	      }
+	*/
+
+	  HAL_Delay(50);
 
     /* USER CODE END WHILE */
 
