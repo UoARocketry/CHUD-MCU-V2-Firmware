@@ -15,7 +15,10 @@ typedef struct
   float x_g;
   float y_g;
   float z_g;
+
 } ADXL314_Data_t;
+
+extern ADXL314_Data_t accel_data;
 
 uint8_t ADXL314_ReadReg(uint8_t reg_addr);
 void ADXL314_ReadAccel(ADXL314_Data_t* data);

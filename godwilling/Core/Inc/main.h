@@ -34,6 +34,7 @@ extern "C" {
 
 /* USER CODE END Includes */
 
+
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
@@ -79,7 +80,6 @@ void Error_Handler(void);
 #define SPI3_MOSI_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
-
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

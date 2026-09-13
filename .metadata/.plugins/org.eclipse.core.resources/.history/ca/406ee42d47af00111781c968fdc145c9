@@ -1,0 +1,68 @@
+/*
+ * state_estimate.c
+ *
+ *  Created on: Sep 13, 2026
+ *      Author: Ash
+ */
+
+#include "main.h"
+#include "cmsis_os.h"
+#include <stdio.h>
+#include "bmp585.h"
+#include "ra02.h"
+#include "adxl314.h"
+#include "imu.h"
+#include "gnss.h"
+
+
+#define GRAVITY               1.0f
+#define CONFIRM_SAMPLES       3
+#define LIFTOFF_THRESHOLD_G   3.0f
+#define BURNOUT_THRESHOLD_G   1.3f
+#define BIAS_CALIB_SAMPLES    200
+#define BACKUP_COAST_TIME_MS  8200
+#define TASK_PERIOD_MS        10
+typedef enum {
+    STATE_PAD_IDLE,
+    STATE_BOOST,
+    STATE_COASTING,
+    STATE_DROGUE_DESCENT,
+    STATE_MAIN_DESCENT,
+    STATE_LANDED
+} FlightState;
+
+
+static float    accel_bias        = 0.0f;
+static float    velocity          = 0.0f;
+static float    position          = 0.0f;
+static float    previous_position = 0.0f;
+static uint8_t  decreasing_count  = 0;
+static FlightState state          = STATE_PAD_IDLE;
+static uint32_t burnout_timestamp_ms = 0;
+float  latest_accel_z;
+
+
+
+static void calibrate_accel_bias(void) {
+    float sum = 0.0f;
+    for (int i = 0; i < BIAS_CALIB_SAMPLES; i++) {
+//        xSemaphoreTake(accelMutex, portMAX_DELAY);
+        float reading = latest_accel_z;
+//        xSemaphoreGive(accelMutex);
+
+        sum += reading;
+        vTaskDelay(pdMS_TO_TICKS(TASK_PERIOD_MS));
+    }
+    accel_bias = (sum / BIAS_CALIB_SAMPLES) - GRAVITY;
+}
+
+
+void stateEstimateTask(void *argument)
+{
+	calibrate_accel_bias();
+    for (;;)
+    {
+        // task body
+        osDelay(100); // ms, yields to scheduler
+    }
+}
