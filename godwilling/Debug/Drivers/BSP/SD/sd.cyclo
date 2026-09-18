@@ -1,0 +1,2 @@
+../Drivers/BSP/SD/sd.c:16:9:SDLogger_Init	3
+../Drivers/BSP/SD/sd.c:36:9:SDLogger_WriteLine	2

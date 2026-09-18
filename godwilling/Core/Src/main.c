@@ -29,6 +29,7 @@
 #include "adxl314.h"
 #include "imu.h"
 #include "gnss.h"
+#include "sd.h"
 
 /* USER CODE END Includes */
 
@@ -49,6 +50,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 SPI_HandleTypeDef hspi3;
 
 TIM_HandleTypeDef htim3;
@@ -65,6 +67,8 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE BEGIN PV */
 // ADXL data ready variable for interrupt
 volatile uint8_t adxl_data_ready = 0;
+uint8_t imu_who_am_i = 0;
+
 
 /* USER CODE END PV */
 
@@ -75,6 +79,7 @@ static void MX_SPI1_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_SPI3_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_SPI2_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
@@ -130,13 +135,14 @@ int main(void)
   MX_TIM3_Init();
   MX_SPI3_Init();
   MX_USART1_UART_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
   BMP585_Init();
   uint8_t pres_temp_data[6];
   BMP585_Data_t pres_temp_real_data;
   //ADXL314_Init();
-  //ADXL314_Data_t accel_data;
+  ADXL314_Data_t accel_data;
 
   //GNSS_Init();
 
@@ -184,46 +190,46 @@ int main(void)
   while (1)
   {
 
-	  //test bmp chip ID with single reg read
-	  //uint8_t bmp_chipID = BMP585_ReadReg(0x01);
-	  //printf("chip id = %X \r\n", bmp_chipID);
-
-
-	  //bmp full 6 byte read test
-
-	  /*
-	  BMP585_BurstReadData(pres_temp_data);
-
-	  for (uint8_t i = 0; i < 6; i++) {
-		  printf("%02X \r\n", pres_temp_data[i]);
-	  }
-	  */
-
-	  BMP585_Extract_Data(&pres_temp_real_data);
-	  printf("TEMP: %.2f, PRES: %.2f\r\n", pres_temp_real_data.temperature, pres_temp_real_data.pressure);
-
-
-
-	  // ADXL read chip ID, should be 0xE5
-	  /*
-	  uint8_t adxl_chipID = ADXL314_ReadReg(0x00);
-	  printf("ADXL chip ID = %X \r\n", adxl_chipID);
-	  */
-
-
-	  // ADXL full x,y,z data read (may need calibration factor from new)
-
-	  //ADXL314_ReadAccel(&accel_data);
-	  //printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
-
-
-	  /*
-	  if (GNSS_Poll())
-	      {
-	          const char* sentence = GNSS_GetSentence();
-	          printf("%s", sentence);
-	      }
-	*/
+//	  //test bmp chip ID with single reg read
+//	  //uint8_t bmp_chipID = BMP585_ReadReg(0x01);
+//	  //printf("chip id = %X \r\n", bmp_chipID);
+//
+//
+//	  //bmp full 6 byte read test
+//
+//	  /*
+//	  BMP585_BurstReadData(pres_temp_data);
+//
+//	  for (uint8_t i = 0; i < 6; i++) {
+//		  printf("%02X \r\n", pres_temp_data[i]);
+//	  }
+//	  */
+//
+//	  BMP585_Extract_Data(&pres_temp_real_data);
+//	  printf("TEMP: %.2f, PRES: %.2f\r\n", pres_temp_real_data.temperature, pres_temp_real_data.pressure);
+//
+//
+//
+//	  // ADXL read chip ID, should be 0xE5
+//	  /*
+//	  uint8_t adxl_chipID = ADXL314_ReadReg(0x00);
+//	  printf("ADXL chip ID = %X \r\n", adxl_chipID);
+//	  */
+//
+//
+//	  // ADXL full x,y,z data read (may need calibration factor from new)
+//
+//	  //ADXL314_ReadAccel(&accel_data);
+//	  //printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+//
+//
+//	  /*
+//	  if (GNSS_Poll())
+//	      {
+//	          const char* sentence = GNSS_GetSentence();
+//	          printf("%s", sentence);
+//	      }
+//	*/
 
 	  HAL_Delay(50);
 
@@ -310,6 +316,44 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
 
 }
 
@@ -443,11 +487,15 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, BMP_CS_Pin|IMU_CS_Pin|ADXL_CS_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LORA_CS_GPIO_Port, LORA_CS_Pin, GPIO_PIN_SET);
@@ -458,6 +506,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : SD_CD_Pin */
+  GPIO_InitStruct.Pin = SD_CD_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(SD_CD_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : SD_CS_Pin */
+  GPIO_InitStruct.Pin = SD_CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ADXL_INT2_Pin ADXL_INT1_Pin */
   GPIO_InitStruct.Pin = ADXL_INT2_Pin|ADXL_INT1_Pin;
@@ -504,10 +565,54 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+	SDLogger_Init();
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	  //test bmp chip ID with single reg read
+	  //uint8_t bmp_chipID = BMP585_ReadReg(0x01);
+	  //printf("chip id = %X \r\n", bmp_chipID);
+	  SDLogger_WriteLine("Hello");
+
+	  //bmp full 6 byte read test
+
+	  /*
+	  BMP585_BurstReadData(pres_temp_data);
+
+	  for (uint8_t i = 0; i < 6; i++) {
+		  printf("%02X \r\n", pres_temp_data[i]);
+	  }
+	  */
+
+//	  BMP585_Extract_Data(&pres_temp_real_data);
+//	  printf("TEMP: %.2f, PRES: %.2f\r\n", pres_temp_real_data.temperature, pres_temp_real_data.pressure);
+
+
+
+	  // ADXL read chip ID, should be 0xE5
+
+//	  uint8_t adxl_chipID = ADXL314_ReadReg(0x00);
+//	  printf("ADXL chip ID = %X \r\n", adxl_chipID);
+
+
+
+	  // ADXL full x,y,z data read (may need calibration factor from new)
+
+//	  ADXL314_ReadAccel(&accel_data);
+//	  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+
+//	  imu_who_am_i = IMU_ReadReg(0xF0); // WHO_AM_I, expect 0x6C
+//	  printf("IMU WhoAmI = %X \r\n", imu_who_am_i);
+
+	  /*
+	  if (GNSS_Poll())
+	      {
+	          const char* sentence = GNSS_GetSentence();
+	          printf("%s", sentence);
+	      }
+	*/
+
+	  osDelay(1);
   }
   /* USER CODE END 5 */
 }
