@@ -25,6 +25,7 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Drivers/BSP/ADXL314 \
+Drivers/BSP/BME280 \
 Drivers/BSP/BMP585 \
 Drivers/BSP/GNSS \
 Drivers/BSP/IMU \

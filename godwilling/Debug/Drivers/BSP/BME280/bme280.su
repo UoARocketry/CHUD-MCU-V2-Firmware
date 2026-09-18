@@ -1,0 +1,8 @@
+../Drivers/BSP/BME280/bme280.c:31:6:BME280_Init	16	static
+../Drivers/BSP/BME280/bme280.c:55:6:BME280_Extract_Data	40	static
+../Drivers/BSP/BME280/bme280.c:76:16:readRegister	24	static
+../Drivers/BSP/BME280/bme280.c:88:13:writeRegister	24	static
+../Drivers/BSP/BME280/bme280.c:98:13:readMultiByte	24	static
+../Drivers/BSP/BME280/bme280.c:109:13:readCalibrationData	16	static
+../Drivers/BSP/BME280/bme280.c:127:16:compensateTemperature	32	static
+../Drivers/BSP/BME280/bme280.c:136:17:compensatePressure	328	static

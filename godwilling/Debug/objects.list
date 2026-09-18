@@ -7,6 +7,7 @@
 "./Core/Src/system_stm32f4xx.o"
 "./Core/Startup/startup_stm32f411retx.o"
 "./Drivers/BSP/ADXL314/adxl314.o"
+"./Drivers/BSP/BME280/bme280.o"
 "./Drivers/BSP/BMP585/bmp585.o"
 "./Drivers/BSP/GNSS/gnss.o"
 "./Drivers/BSP/IMU/imu.o"

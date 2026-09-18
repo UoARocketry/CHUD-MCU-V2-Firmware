@@ -18,6 +18,7 @@ RM := rm -rf
 -include Drivers/BSP/IMU/subdir.mk
 -include Drivers/BSP/GNSS/subdir.mk
 -include Drivers/BSP/BMP585/subdir.mk
+-include Drivers/BSP/BME280/subdir.mk
 -include Drivers/BSP/ADXL314/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk

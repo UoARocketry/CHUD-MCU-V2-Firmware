@@ -1,0 +1,200 @@
+#include "bme280.h"
+#include <stdbool.h>
+#include <stdio.h>
+
+/* TODO: rename these to match your actual CubeMX-generated pin labels
+ * for the BME280 chip-select (CSB) line. Kept as BMP_CS_* to mirror
+ * the original BMP585 driver's naming; change if you gave the pin a
+ * different label in CubeMX. */
+extern SPI_HandleTypeDef hspi1;
+
+static BME280_CalibData_t s_calib;
+static int32_t s_t_fine;   /* carries fine-resolution temperature into the
+                               pressure/humidity compensation formulas,
+                               datasheet section 4.2.3 */
+
+uint8_t BME280_ReadReg(uint8_t reg_addr)
+{
+  /* MSB = R/W ('1' = read), following 7 bits are the register address
+   * (datasheet chapter 6.3.2 SPI read) */
+  uint8_t tx_byte = (1 << 7) | (reg_addr & ~(1 << 7));
+  uint8_t rx_byte = 0;
+
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit(&hspi1, &tx_byte, 1, HAL_MAX_DELAY);
+  HAL_SPI_Receive(&hspi1, &rx_byte, 1, HAL_MAX_DELAY);
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_SET);
+
+  return rx_byte;
+}
+
+void BME280_WriteReg(uint8_t reg_addr, uint8_t data)
+{
+  /* Write bit = 0 in bit7 (datasheet chapter 6.3.1 SPI write) */
+  uint8_t tx_byte = reg_addr & ~(1 << 7);
+
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_RESET);
+  HAL_SPI_Transmit(&hspi1, &tx_byte, 1, HAL_MAX_DELAY);
+  HAL_SPI_Transmit(&hspi1, &data, 1, HAL_MAX_DELAY);
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_SET);
+}
+
+/* Burst-reads calib00..calib24 (0x88-0x9F, 24 bytes) and unpacks the
+ * temperature/pressure trim values per Table 16 of the datasheet.
+ * Humidity trim (0xA1, 0xE1-0xE7) is not read since humidity is unused. */
+static void BME280_ReadCalibrationData(void)
+{
+  uint8_t buf[24] = {0};
+
+  for (uint8_t i = 0; i < 24; i++) {
+    buf[i] = BME280_ReadReg(BME280_REG_CALIB00 + i);
+  }
+
+  s_calib.dig_T1 = (uint16_t)(buf[1]  << 8 | buf[0]);
+  s_calib.dig_T2 = (int16_t)(buf[3]  << 8 | buf[2]);
+  s_calib.dig_T3 = (int16_t)(buf[5]  << 8 | buf[4]);
+
+  s_calib.dig_P1 = (uint16_t)(buf[7]  << 8 | buf[6]);
+  s_calib.dig_P2 = (int16_t)(buf[9]  << 8 | buf[8]);
+  s_calib.dig_P3 = (int16_t)(buf[11] << 8 | buf[10]);
+  s_calib.dig_P4 = (int16_t)(buf[13] << 8 | buf[12]);
+  s_calib.dig_P5 = (int16_t)(buf[15] << 8 | buf[14]);
+  s_calib.dig_P6 = (int16_t)(buf[17] << 8 | buf[16]);
+  s_calib.dig_P7 = (int16_t)(buf[19] << 8 | buf[18]);
+  s_calib.dig_P8 = (int16_t)(buf[21] << 8 | buf[20]);
+  s_calib.dig_P9 = (int16_t)(buf[23] << 8 | buf[22]);
+}
+
+void BME280_Init(void)
+{
+  /* Ensure SPI interface selection (CSB low) before any transaction.
+   * CSB must go low at least once, and stay externally tied appropriately,
+   * or the I2C interface will remain selected (datasheet chapter 6.1). */
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_RESET);
+  HAL_Delay(1);
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_SET);
+
+  uint8_t chip_id = BME280_ReadReg(BME280_REG_ID);
+  if (chip_id != BME280_CHIP_ID) {
+      printf("BAD CHIP ID: 0x%02X (expected 0x%02X)\r\n", chip_id, BME280_CHIP_ID);
+  }
+
+  BME280_WriteReg(BME280_REG_RESET, BME280_SOFT_RESET_CMD); /* soft reset */
+  HAL_Delay(5);                                              /* t_startup = 2ms, allow margin */
+
+  /* Wait for NVM copy to complete (status.im_update -> 0), chapter 5.4.4 */
+  uint32_t timeout = HAL_GetTick() + 100;
+  while ((BME280_ReadReg(BME280_REG_STATUS) & BME280_STATUS_IM_UPDATE) &&
+         HAL_GetTick() < timeout) {
+      HAL_Delay(1);
+  }
+
+  BME280_ReadCalibrationData();
+
+  /* Humidity is unused: osrs_h is left at its power-on-reset default of
+   * 'skipped' (000b), so ctrl_hum is never written. This also means the
+   * ctrl_hum-takes-effect-after-ctrl_meas-write rule (chapter 5.4.3)
+   * doesn't come into play here. */
+
+  uint8_t ctrl_meas = (BME280_OSRS_X2 << 5) |  /* osrs_t x2 */
+                      (BME280_OSRS_X16 << 2) | /* osrs_p x16 */
+                      BME280_MODE_NORMAL;      /* mode = normal */
+  BME280_WriteReg(BME280_REG_CTRL_MEAS, ctrl_meas);
+
+  uint8_t config = (BME280_STANDBY_62_5_MS << 5) | /* t_sb */
+                   (BME280_FILTER_16 << 2);        /* filter */
+  BME280_WriteReg(BME280_REG_CONFIG, config);
+
+  printf("CTRL_MEAS=0x%02X CONFIG=0x%02X\r\n",
+         BME280_ReadReg(BME280_REG_CTRL_MEAS),
+         BME280_ReadReg(BME280_REG_CONFIG));
+
+  HAL_Delay(50); /* let the first conversion complete */
+}
+
+void BME280_BurstReadData(uint8_t* buf)
+{
+  /* Burst read from 0xF7 to 0xFC: press_msb/lsb/xlsb, temp_msb/lsb/xlsb
+   * (datasheet chapter 4, Table 18). Humidity registers (0xFD/0xFE) are
+   * not read since humidity is unused. A burst read is still required so
+   * that data register shadowing keeps pressure and temperature from the
+   * same measurement cycle consistent (chapter 4.1). */
+  uint8_t tx_buf[7] = {0};
+  uint8_t rx_buf[7] = {0};
+
+  tx_buf[0] = (1 << 7) | (BME280_REG_PRESS_MSB & ~(1 << 7)); /* address byte, rest dummy */
+
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_RESET);
+  HAL_SPI_TransmitReceive(&hspi1, tx_buf, rx_buf, 7, HAL_MAX_DELAY);
+  HAL_GPIO_WritePin(BMP_CS_GPIO_Port, BMP_CS_Pin, GPIO_PIN_SET);
+
+  for (uint8_t i = 0; i < 6; i++)
+  {
+      buf[i] = rx_buf[i + 1]; /* skip first byte (received during address tx) */
+  }
+}
+
+/* Returns temperature in DegC * 100 (e.g. 5123 = 51.23 degC) and updates
+ * s_t_fine, per datasheet section 4.2.3 rev 1.1. */
+static int32_t BME280_CompensateTemperature(int32_t adc_T)
+{
+  int32_t var1, var2, T;
+
+  var1 = ((((adc_T >> 3) - ((int32_t)s_calib.dig_T1 << 1))) * ((int32_t)s_calib.dig_T2)) >> 11;
+  var2 = (((((adc_T >> 4) - ((int32_t)s_calib.dig_T1)) *
+            ((adc_T >> 4) - ((int32_t)s_calib.dig_T1))) >> 12) *
+          ((int32_t)s_calib.dig_T3)) >> 14;
+
+  s_t_fine = var1 + var2;
+  T = (s_t_fine * 5 + 128) >> 8;
+  return T;
+}
+
+/* Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format
+ * (24 integer bits, 8 fractional bits), per datasheet section 4.2.3 rev 1.1.
+ * Requires s_t_fine from BME280_CompensateTemperature() to be called first. */
+static uint32_t BME280_CompensatePressure(int32_t adc_P)
+{
+  int64_t var1, var2, p;
+
+  var1 = ((int64_t)s_t_fine) - 128000;
+  var2 = var1 * var1 * (int64_t)s_calib.dig_P6;
+  var2 = var2 + ((var1 * (int64_t)s_calib.dig_P5) << 17);
+  var2 = var2 + (((int64_t)s_calib.dig_P4) << 35);
+  var1 = ((var1 * var1 * (int64_t)s_calib.dig_P3) >> 8) +
+         ((var1 * (int64_t)s_calib.dig_P2) << 12);
+  var1 = (((((int64_t)1) << 47) + var1)) * ((int64_t)s_calib.dig_P1) >> 33;
+
+  if (var1 == 0) {
+      return 0; /* avoid exception caused by division by zero */
+  }
+
+  p = 1048576 - adc_P;
+  p = (((p << 31) - var2) * 3125) / var1;
+  var1 = (((int64_t)s_calib.dig_P9) * (p >> 13) * (p >> 13)) >> 25;
+  var2 = (((int64_t)s_calib.dig_P8) * p) >> 19;
+  p = ((p + var1 + var2) >> 8) + (((int64_t)s_calib.dig_P7) << 4);
+
+  return (uint32_t)p;
+}
+
+void BME280_Extract_Data(BME280_Data_t* data)
+{
+  uint8_t raw[6] = {0};
+
+  /* raw[0..2] = press_msb, press_lsb, press_xlsb
+   * raw[3..5] = temp_msb,  temp_lsb,  temp_xlsb  */
+  BME280_BurstReadData(raw);
+
+  int32_t adc_P = ((int32_t)raw[0] << 12) | ((int32_t)raw[1] << 4) | (raw[2] >> 4);
+  int32_t adc_T = ((int32_t)raw[3] << 12) | ((int32_t)raw[4] << 4) | (raw[5] >> 4);
+
+  data->temp_raw  = adc_T;
+  data->press_raw = adc_P;
+
+  int32_t  t_comp = BME280_CompensateTemperature(adc_T); /* must run first: sets s_t_fine */
+  uint32_t p_comp = BME280_CompensatePressure(adc_P);     /* Q24.8 */
+
+  data->temperature = (float)t_comp / 100.0f;    /* degC */
+  data->pressure     = (float)p_comp / 256.0f;    /* Pa   */
+}
