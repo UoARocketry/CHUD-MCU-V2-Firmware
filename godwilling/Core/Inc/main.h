@@ -69,8 +69,6 @@ void Error_Handler(void);
 #define SD_MISO_GPIO_Port GPIOC
 #define SD_MOSI_Pin GPIO_PIN_3
 #define SD_MOSI_GPIO_Port GPIOC
-#define SD_SCLK_Pin GPIO_PIN_10
-#define SD_SCLK_GPIO_Port GPIOB
 #define SD_CS_Pin GPIO_PIN_12
 #define SD_CS_GPIO_Port GPIOB
 #define ADXL_INT2_Pin GPIO_PIN_6
