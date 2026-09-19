@@ -64,6 +64,7 @@ ADXL314_Data_t latest_accel;
 void vTaskBMP(void *pvParameters);
 void vSensorTasksInit(void);
 void vTaskAccel(void *pvParameters);
+void vDeadReckoningTask(void *pvParameters);
 /* USER CODE END FunctionPrototypes */
 
 /* Private application code --------------------------------------------------*/
@@ -77,6 +78,7 @@ void vSensorTasksInit(void) {
 
     xTaskCreate(vTaskBMP, "BMP", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+    xTaskCreate(vDeadReckoningTask, "DeadReckoning", 512, NULL, tskIDLE_PRIORITY + 4, NULL);
 }
 
 
@@ -96,7 +98,7 @@ void vTaskBMP(void *pvParameters) {
             }
 
             // debug only — remove once telemetry/logging consume latest_bmp instead
-            printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+            printf("TEMP: %.2f C, PRES: %.2f Pa\r\n", latest_bmp.temperature, latest_bmp.pressure);
         }
 
         vTaskDelay(pdMS_TO_TICKS(20));

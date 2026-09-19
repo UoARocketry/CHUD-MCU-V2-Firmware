@@ -2,8 +2,15 @@
 #include <stdbool.h>
 #include "FreeRTOS.h"
 #include "task.h"
-#include "dead_reckoning.h"    // dr_update, dr_get_position, dr_get_velocity, dr_reset
+#include "DR.h"    // dr_update, dr_get_position, dr_get_velocity, dr_reset
 #include "pressure_altitude.h" // pressure_to_altitude_m
+#include "adxl314.h"
+#include "bme280.h"
+#include "shared_data.h"
+
+#define APOGEE_CONFIRM_COUNT 5
+#define MIN_ALTITUDE_FOR_APOGEE_M 10.0f
+#define GRAVITY_MS2 9.80665f
 
 /* ------------------------------------------------------------------ */
 /* Apogee detection                                                    */
@@ -21,14 +28,11 @@
 /* require N consecutive falling samples before declaring apogee.      */
 /* ------------------------------------------------------------------ */
 
-#define APOGEE_CONFIRM_COUNT 5          // consecutive falling samples required
-#define MIN_ALTITUDE_FOR_APOGEE_M 10.0f // ignore ground-level noise pre-launch
-
 typedef struct
 {
     float last_altitude_m;
     uint8_t falling_count;
-    bool armed; // true once we've seen real upward motion (post-launch)
+    bool armed;
     bool apogee_detected;
     float apogee_altitude_m;
 } apogee_state_t;
@@ -44,24 +48,13 @@ void apogee_reset(void)
     apogee.apogee_altitude_m = 0.0f;
 }
 
-// Call once per sensor cycle with the current barometric altitude (meters,
-// relative to your chosen reference — see pressure_altitude.h). Returns true
-// the instant apogee is confirmed (fires exactly once per flight until
-// apogee_reset()).
 bool apogee_check(float baro_altitude_m)
 {
-    if (apogee.apogee_detected)
-    {
-        return false; // already fired, don't re-trigger
-    }
+    if (apogee.apogee_detected) return false;
 
-    // DR velocity is used only as a secondary check to help arm sooner
-    // and to break ties on genuinely noisy baro samples — baro altitude
-    // itself drives the rising/falling decision.
     float dr_vx, dr_vy, z_vel;
     dr_get_velocity(&dr_vx, &dr_vy, &z_vel);
 
-    // Don't start looking for apogee until we've actually left the pad.
     if (!apogee.armed)
     {
         if (baro_altitude_m > MIN_ALTITUDE_FOR_APOGEE_M && z_vel > 0.0f)
@@ -73,13 +66,9 @@ bool apogee_check(float baro_altitude_m)
     }
 
     if (baro_altitude_m < apogee.last_altitude_m)
-    {
         apogee.falling_count++;
-    }
     else
-    {
-        apogee.falling_count = 0; // reset on any real upward sample
-    }
+        apogee.falling_count = 0;
 
     apogee.last_altitude_m = baro_altitude_m;
 
@@ -89,82 +78,65 @@ bool apogee_check(float baro_altitude_m)
         apogee.apogee_altitude_m = baro_altitude_m;
         return true;
     }
-
     return false;
 }
 
-float apogee_get_altitude(void)
-{
-    return apogee.apogee_altitude_m;
-}
+float apogee_get_altitude(void) { return apogee.apogee_altitude_m; }
+bool apogee_has_occurred(void) { return apogee.apogee_detected; }
 
-bool apogee_has_occurred(void)
-{
-    return apogee.apogee_detected;
-}
-
-/* ------------------------------------------------------------------ */
-/* RTOS task                                                           */
-/* ------------------------------------------------------------------ */
-
-#define DR_TASK_PERIOD_MS 20 // 50 Hz update rate — adjust to your IMU's ODR
-
-// Replace this with your actual IMU driver call. Must return
-// world-frame, gravity-compensated acceleration in m/s^2.
-// (If your IMU only gives body-frame readings, rotate them using your
-// orientation estimate and subtract gravity before returning.)
-extern void read_accel_world_frame(float *x, float *y, float *z);
-
-// Replace this with your actual barometer driver call. Returns raw
-// pressure in Pascals.
-extern float read_pressure_pa(void);
-
-// Records the tick time apogee was detected (i.e. when deployment
-// would've fired) instead of actually triggering a pyro channel.
-// Swap this out for the real deployment call once you're ready to
-// go from logging-only to a live recovery sequence.
 static uint32_t deploy_would_have_fired_at_ms = 0;
 static bool deploy_logged = false;
+static SemaphoreHandle_t deployLogMutex;
 
-// Replace this with your actual logging mechanism (UART printf,
-// SD card write, flash log, etc). Left as a weak-ish extern hook
-// so you can swap in the real thing without touching this file.
-extern void log_event(const char *msg, uint32_t value);
+//extern void log_event(const char *msg, uint32_t value);
 
 static void deploy_recovery(void)
 {
-    deploy_would_have_fired_at_ms = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ);
+    uint32_t now_ms = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ);
+    xSemaphoreTake(deployLogMutex, portMAX_DELAY);
+    deploy_would_have_fired_at_ms = now_ms;
     deploy_logged = true;
-    log_event("APOGEE - would deploy recovery at t(ms)=", deploy_would_have_fired_at_ms);
+    xSemaphoreGive(deployLogMutex);
+//    log_event("APOGEE - would deploy recovery at t(ms)=", now_ms);
 }
 
 uint32_t deploy_get_logged_time_ms(void)
 {
-    return deploy_would_have_fired_at_ms;
+    xSemaphoreTake(deployLogMutex, portMAX_DELAY);
+    uint32_t val = deploy_would_have_fired_at_ms;
+    xSemaphoreGive(deployLogMutex);
+    return val;
 }
 
 bool deploy_was_logged(void)
 {
-    return deploy_logged;
+    xSemaphoreTake(deployLogMutex, portMAX_DELAY);
+    bool val = deploy_logged;
+    xSemaphoreGive(deployLogMutex);
+    return val;
 }
+
+#define DR_TASK_PERIOD_MS 20
 
 void vDeadReckoningTask(void *pvParameters)
 {
     (void)pvParameters;
 
+    deployLogMutex = xSemaphoreCreateMutex();
+
     dr_reset();
     apogee_reset();
 
-    // Ground-level calibration: use the pad pressure as the zero-altitude
-    // reference so baro altitude reads ~0 at launch (altitude-above-ground,
-    // not altitude-above-sea-level — and no QNH lookup needed). Average a
-    // few samples to smooth out sensor noise in the reference itself.
+    vTaskDelay(pdMS_TO_TICKS(100)); // let vTaskBMP produce a first real reading
+
     float ground_pressure_pa = 0.0f;
     const int GROUND_CAL_SAMPLES = 16;
     for (int i = 0; i < GROUND_CAL_SAMPLES; i++)
     {
-        ground_pressure_pa += read_pressure_pa();
-        vTaskDelay(pdMS_TO_TICKS(10));
+        xSemaphoreTake(bmpMutex, portMAX_DELAY);
+        ground_pressure_pa += latest_bmp.pressure; // confirm this is Pa, not hPa, per earlier conversion
+        xSemaphoreGive(bmpMutex);
+        vTaskDelay(pdMS_TO_TICKS(20));
     }
     ground_pressure_pa /= GROUND_CAL_SAMPLES;
 
@@ -174,16 +146,21 @@ void vDeadReckoningTask(void *pvParameters)
     for (;;)
     {
         float ax, ay, az;
-        read_accel_world_frame(&ax, &ay, &az);
+        xSemaphoreTake(accelMutex, portMAX_DELAY);
+        ax = latest_accel.x_g * GRAVITY_MS2;
+        ay = latest_accel.y_g * GRAVITY_MS2;
+        az = (latest_accel.z_g * GRAVITY_MS2) - GRAVITY_MS2; // crude gravity removal, Z-axis-up assumption only
+        xSemaphoreGive(accelMutex);
+
         dr_update(ax, ay, az);
 
-        float pressure_pa = read_pressure_pa();
+        float pressure_pa;
+        xSemaphoreTake(bmpMutex, portMAX_DELAY);
+        pressure_pa = latest_bmp.pressure;
+        xSemaphoreGive(bmpMutex);
+
         float baro_altitude_m = pressure_to_altitude_m(pressure_pa, ground_pressure_pa);
 
-        // Correct the dead-reckoning z position with the (much less
-        // drift-prone) baro altitude each cycle. This is a simple
-        // complementary correction, not a full filter: DR still supplies
-        // vertical velocity, baro keeps position from drifting away.
         float dr_x, dr_y, dr_z_unused;
         dr_get_position(&dr_x, &dr_y, &dr_z_unused);
         dr_correct_position(dr_x, dr_y, baro_altitude_m);
@@ -191,8 +168,6 @@ void vDeadReckoningTask(void *pvParameters)
         if (apogee_check(baro_altitude_m))
         {
             deploy_recovery();
-            // Task continues running (e.g. for descent tracking / logging)
-            // but will not re-fire apogee detection until apogee_reset().
         }
 
         vTaskDelayUntil(&last_wake_time, period_ticks);

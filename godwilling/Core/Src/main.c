@@ -48,7 +48,6 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-void stateEstimateTask(void *argument);
 
 /* USER CODE END PM */
 
@@ -62,24 +61,18 @@ UART_HandleTypeDef huart1;
 
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
-osThreadId_t stateEstimateTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 
-const osThreadAttr_t stateEstimateTask_attributes = {
-    .name = "stateEstimateTask",
-    .stack_size = 256 * 4,      // bytes (CubeMX usually sizes in words then converts)
-    .priority = (osPriority_t) osPriorityRealtime7,
-};
 
 /* USER CODE BEGIN PV */
 
 
 
-ADXL314_Data_t accel_data;
+//ADXL314_Data_t accel_data;
 
 
 // ADXL data ready variable for interrupt
@@ -163,7 +156,7 @@ int main(void)
   //ADXL314_Init();
 
   //GNSS_Init();
-  vSensorTasksInit();
+
 
   /* USER CODE END 2 */
 
@@ -189,10 +182,10 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-  stateEstimateTaskHandle = osThreadNew(stateEstimateTask, NULL, &stateEstimateTask_attributes);
 
 
   /* USER CODE BEGIN RTOS_THREADS */
+  vSensorTasksInit();
   /* add threads, ... */
 
 
@@ -225,7 +218,7 @@ int main(void)
 
 	  // ADXL full x,y,z data read (may need calibration factor from new)
 
-	  ADXL314_ReadAccel(&accel_data);
+//	  ADXL314_ReadAccel(&accel_data);
 	  //printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
 
 
@@ -237,7 +230,7 @@ int main(void)
 	      }
 	*/
 
-	  HAL_Delay(50);
+//	  HAL_Delay(50);
 
     /* USER CODE END WHILE */
 

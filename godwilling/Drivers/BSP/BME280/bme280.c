@@ -68,7 +68,7 @@ void BME280_Extract_Data(BME280_Data_t *data) {
 
   // Convert fixed-point results into readable units
   data->temperature = (float)temp_calibrated / 100.0f;       // °C
-  data->pressure    = (float)press_calibrated / 256.0f / 100.0f; // hPa
+  data->pressure    = (float)press_calibrated / 256.0f ; // Pa
 }
 
 // --- SPI Communication Helpers using HAL ---

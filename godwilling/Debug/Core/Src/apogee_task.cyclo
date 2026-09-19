@@ -1,0 +1,9 @@
+../Core/Inc/pressure_altitude.h:19:21:pressure_to_altitude_m	1
+../Core/Src/apogee_task.c:42:6:apogee_reset	1
+../Core/Src/apogee_task.c:51:6:apogee_check	7
+../Core/Src/apogee_task.c:84:7:apogee_get_altitude	1
+../Core/Src/apogee_task.c:85:6:apogee_has_occurred	1
+../Core/Src/apogee_task.c:93:13:deploy_recovery	1
+../Core/Src/apogee_task.c:103:10:deploy_get_logged_time_ms	1
+../Core/Src/apogee_task.c:111:6:deploy_was_logged	1
+../Core/Src/apogee_task.c:121:6:vDeadReckoningTask	3

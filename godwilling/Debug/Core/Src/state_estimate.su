@@ -1,2 +1,0 @@
-../Core/Src/state_estimate.c:46:13:calibrate_accel_bias	24	static
-../Core/Src/state_estimate.c:60:6:stateEstimateTask	32	static
