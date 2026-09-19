@@ -33,7 +33,7 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
-
+extern ADXL314_Data_t accel_data;
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
