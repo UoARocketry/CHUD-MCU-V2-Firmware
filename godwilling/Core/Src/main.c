@@ -20,16 +20,19 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "fatfs.h"
+#include "freeRTOS.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "semphr.h"
 #include "bmp585.h"
 #include "bme280.h"
 #include "ra02.h"
 #include "adxl314.h"
 #include "imu.h"
 #include "gnss.h"
+#include "shared_data.h"
 
 /* USER CODE END Includes */
 
@@ -66,7 +69,6 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE BEGIN PV */
 // ADXL data ready variable for interrupt
 volatile uint8_t adxl_data_ready = 0;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -139,14 +141,15 @@ int main(void)
   // uint8_t pres_temp_data[6];
   // BMP585_Data_t pres_temp_real_data;
 
-  BME280_Init();
-  BME280_Data_t bme_data;
+
+//  BME280_Init();
+//  BME280_Data_t bme_data;
 
   //ADXL314_Init();
   //ADXL314_Data_t accel_data;
 
   //GNSS_Init();
-
+  vSensorTasksInit();
 
   /* USER CODE END 2 */
 
@@ -175,6 +178,8 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+
+
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -191,9 +196,9 @@ int main(void)
   while (1)
   {
 
-	  BME280_Extract_Data(&bme_data);
-	  printf("TEMP: %.2f °C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
-	  HAL_Delay(1000);
+//	  BME280_Extract_Data(&bme_data);
+//	  printf("TEMP: %.2f °C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+//	  HAL_Delay(1000);
 
 	  // ADXL read chip ID, should be 0xE5
 	  /*
@@ -479,7 +484,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if (GPIO_Pin == ADXL_INT1_Pin) // substitute your actual macro name from main.h
   {
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     adxl_data_ready = 1;
+    xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
   }
 }
 

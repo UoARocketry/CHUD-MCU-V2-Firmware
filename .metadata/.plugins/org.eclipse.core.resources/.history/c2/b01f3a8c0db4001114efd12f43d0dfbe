@@ -1,0 +1,93 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * File Name          : freertos.c
+  * Description        : Code for freertos applications
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+/* Includes ------------------------------------------------------------------*/
+#include "FreeRTOS.h"
+#include "task.h"
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN Variables */
+
+/* USER CODE END Variables */
+
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN FunctionPrototypes */
+
+/* USER CODE END FunctionPrototypes */
+
+/* Private application code --------------------------------------------------*/
+/* USER CODE BEGIN Application */
+
+void vSensorTasksInit(void) {
+    spiBusMutex = xSemaphoreCreateMutex();
+    bmpMutex = xSemaphoreCreateMutex();
+    accelMutex = xSemaphoreCreateMutex();
+    accelDataReadySem = xSemaphoreCreateBinary();
+
+    xTaskCreate(vTaskBMP, "BMP", 256, NULL, tskIDLE_PRIORITY + 2, NULL);
+    xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+}
+
+
+void vTaskBMP(void *pvParameters) {
+	BME280_Init();
+    for (;;) {
+        // 1. take SPI bus mutex
+        // 2. burst-read pressure+temp registers
+        // 3. release SPI bus mutex
+        // 4. compensate raw values → altitude
+        // 5. take BMP mutex, write latest_bmp, release
+    	BME280_Extract_Data(&bme_data);
+    	printf("TEMP: %.2f °C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+
+void vTaskAccel(void *pvParameters) {
+    for (;;) {
+        xSemaphoreTake(accelDataReadySem, portMAX_DELAY);
+        // 1. take SPI bus mutex
+        // 2. read accel registers
+        // 3. release SPI bus mutex
+        // 4. convert raw → g
+        // 5. take Accel mutex, write latest_accel, release
+    }
+/* USER CODE END Application */
+

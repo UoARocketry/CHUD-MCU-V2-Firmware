@@ -1,0 +1,23 @@
+/*
+ * shared_data.h
+ *
+ *  Created on: Sep 19, 2026
+ *      Author: mailm
+ */
+
+#ifndef INC_SHARED_DATA_H_
+#define INC_SHARED_DATA_H_
+
+#include "FreeRTOS.h"
+#include "semphr.h"
+
+extern SemaphoreHandle_t spiBusMutex;
+extern SemaphoreHandle_t bmpMutex;
+extern SemaphoreHandle_t accelMutex;
+extern SemaphoreHandle_t accelDataReadySem;
+
+extern BME280_Data_t latest_bmp;
+extern ADXL314_Data_t latest_accel;
+
+void vSensorTasksInit(void);
+#endif /* INC_SHARED_DATA_H_ */

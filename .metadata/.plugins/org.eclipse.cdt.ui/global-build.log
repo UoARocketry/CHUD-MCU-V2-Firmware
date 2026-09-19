@@ -803,3 +803,872 @@ arm-none-eabi-size  godwilling.elf
   31952	    488	   2352	  34792	   87e8	godwilling.elf
 Finished building: default.size.stdout
  
+20:30:53 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/croutine.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/croutine.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/croutine.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/croutine.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/event_groups.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/event_groups.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/event_groups.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/list.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/list.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/list.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/list.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/queue.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/queue.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/queue.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/queue.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/tasks.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/tasks.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/tasks.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/tasks.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/timers.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/timers.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/timers.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FatFs/src/option/syscall.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FatFs/src/option/syscall.d" -MT"Middlewares/Third_Party/FatFs/src/option/syscall.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FatFs/src/option/syscall.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FatFs/src/diskio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FatFs/src/diskio.d" -MT"Middlewares/Third_Party/FatFs/src/diskio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FatFs/src/diskio.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FatFs/src/ff.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FatFs/src/ff.d" -MT"Middlewares/Third_Party/FatFs/src/ff.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FatFs/src/ff.o"
+arm-none-eabi-gcc "../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FatFs/src/ff_gen_drv.d" -MT"Middlewares/Third_Party/FatFs/src/ff_gen_drv.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FatFs/src/ff_gen_drv.o"
+arm-none-eabi-gcc "../FATFS/Target/user_diskio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"FATFS/Target/user_diskio.d" -MT"FATFS/Target/user_diskio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "FATFS/Target/user_diskio.o"
+arm-none-eabi-gcc "../FATFS/App/fatfs.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"FATFS/App/fatfs.d" -MT"FATFS/App/fatfs.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "FATFS/App/fatfs.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o"
+arm-none-eabi-gcc "../Drivers/BSP/Ra02/ra02.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/Ra02/ra02.d" -MT"Drivers/BSP/Ra02/ra02.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/Ra02/ra02.o"
+arm-none-eabi-gcc "../Drivers/BSP/IMU/imu.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/IMU/imu.d" -MT"Drivers/BSP/IMU/imu.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/IMU/imu.o"
+arm-none-eabi-gcc "../Drivers/BSP/GNSS/gnss.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/GNSS/gnss.d" -MT"Drivers/BSP/GNSS/gnss.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/GNSS/gnss.o"
+arm-none-eabi-gcc "../Drivers/BSP/BMP585/bmp585.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/BMP585/bmp585.d" -MT"Drivers/BSP/BMP585/bmp585.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/BMP585/bmp585.o"
+arm-none-eabi-gcc "../Drivers/BSP/BME280/bme280.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/BME280/bme280.d" -MT"Drivers/BSP/BME280/bme280.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/BME280/bme280.o"
+arm-none-eabi-gcc "../Drivers/BSP/ADXL314/adxl314.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/ADXL314/adxl314.d" -MT"Drivers/BSP/ADXL314/adxl314.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/ADXL314/adxl314.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -I../Core/Inc -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f411retx.d" -MT"Core/Startup/startup_stm32f411retx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f411retx.o" "../Core/Startup/startup_stm32f411retx.s"
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_timebase_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_timebase_tim.d" -MT"Core/Src/stm32f4xx_hal_timebase_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_timebase_tim.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32f4xx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32f4xx.d" -MT"Core/Src/system_stm32f4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32f4xx.o"
+arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mailm\Desktop\localsh1\Projects\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: godwilling.elf
+ 
+arm-none-eabi-size  godwilling.elf 
+arm-none-eabi-objdump -h -S godwilling.elf  > "godwilling.list"
+   text	   data	    bss	    dec	    hex	filename
+  43436	    492	  21276	  65204	   feb4	godwilling.elf
+Finished building: default.size.stdout
+ 
+Finished building: godwilling.list
+ 
+22:24:42 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Drivers/BSP/ADXL314/adxl314.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/ADXL314/adxl314.d" -MT"Drivers/BSP/ADXL314/adxl314.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/ADXL314/adxl314.o"
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:61:5: error: 'spiBusMutex' undeclared (first use in this function)
+   61 |     spiBusMutex = xSemaphoreCreateMutex();
+      |     ^~~~~~~~~~~
+../Core/Src/freertos.c:61:5: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c:61:19: warning: implicit declaration of function 'xSemaphoreCreateMutex' [-Wimplicit-function-declaration]
+   61 |     spiBusMutex = xSemaphoreCreateMutex();
+      |                   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:62:5: error: 'bmpMutex' undeclared (first use in this function)
+   62 |     bmpMutex = xSemaphoreCreateMutex();
+      |     ^~~~~~~~
+../Core/Src/freertos.c:63:5: error: 'accelMutex' undeclared (first use in this function)
+   63 |     accelMutex = xSemaphoreCreateMutex();
+      |     ^~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c:64:5: error: 'accelDataReadySem' undeclared (first use in this function)
+   64 |     accelDataReadySem = xSemaphoreCreateBinary();
+      |     ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:64:25: warning: implicit declaration of function 'xSemaphoreCreateBinary' [-Wimplicit-function-declaration]
+   64 |     accelDataReadySem = xSemaphoreCreateBinary();
+      |                         ^~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c:67:17: error: 'vTaskAccel' undeclared (first use in this function)
+   67 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:72:5: warning: implicit declaration of function 'BME280_Init' [-Wimplicit-function-declaration]
+   72 |     BME280_Init();
+      |     ^~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/freertos.c:75:13: warning: implicit declaration of function 'xSemaphoreTake'; did you mean 'xSemaphoreHandle'? [-Wimplicit-function-declaration]
+   75 |         if (xSemaphoreTake(spiBusMutex, portMAX_DELAY) == pdTRUE) {
+      |             ^~~~~~~~~~~~~~
+      |             xSemaphoreHandle
+../Core/Src/freertos.c:75:28: error: 'spiBusMutex' undeclared (first use in this function)
+   75 |         if (xSemaphoreTake(spiBusMutex, portMAX_DELAY) == pdTRUE) {
+      |                            ^~~~~~~~~~~
+../Core/Src/freertos.c:76:13: warning: implicit declaration of function 'BME280_Extract_Data' [-Wimplicit-function-declaration]
+   76 |             BME280_Extract_Data(&bme_data);
+      |             ^~~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:76:34: error: 'bme_data' undeclared (first use in this function)
+   76 |             BME280_Extract_Data(&bme_data);
+      |                                  ^~~~~~~~
+../Core/Src/freertos.c:77:13: warning: implicit declaration of function 'xSemaphoreGive'; did you mean 'xSemaphoreHandle'? [-Wimplicit-function-declaration]
+   77 |             xSemaphoreGive(spiBusMutex);
+      |             ^~~~~~~~~~~~~~
+      |             xSemaphoreHandle
+../Core/Src/freertos.c:79:13: error: unknown type name 'BMPReading'
+   79 |             BMPReading reading;
+      |             ^~~~~~~~~~
+../Core/Src/freertos.c:80:20: error: request for member 'pressure_pa' in something not a structure or union
+   80 |             reading.pressure_pa = bme_data.pressure * 100.0f;  // hPa -> Pa
+      |                    ^
+../Core/Src/freertos.c:81:20: error: request for member 'temperature' in something not a structure or union
+   81 |             reading.temperature = bme_data.temperature;
+      |                    ^
+../Core/Src/freertos.c:82:20: error: request for member 'timestamp' in something not a structure or union
+   82 |             reading.timestamp   = xTaskGetTickCount();
+      |                    ^
+../Core/Src/freertos.c:84:32: error: 'bmpMutex' undeclared (first use in this function)
+   84 |             if (xSemaphoreTake(bmpMutex, portMAX_DELAY) == pdTRUE) {
+      |                                ^~~~~~~~
+../Core/Src/freertos.c:85:17: error: 'latest_bmp' undeclared (first use in this function)
+   85 |                 latest_bmp = reading;
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:90:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   90 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:24:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   23 | #include "main.h"
+  +++ |+#include <stdio.h>
+   24 | 
+../Core/Src/freertos.c:90:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   90 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:90:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:99:5: warning: implicit declaration of function 'ADXL314_Init' [-Wimplicit-function-declaration]
+   99 |     ADXL314_Init();
+      |     ^~~~~~~~~~~~
+../Core/Src/freertos.c:100:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  100 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:103:24: error: 'accelDataReadySem' undeclared (first use in this function)
+  103 |         xSemaphoreTake(accelDataReadySem, portMAX_DELAY);
+      |                        ^~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:105:28: error: 'spiBusMutex' undeclared (first use in this function)
+  105 |         if (xSemaphoreTake(spiBusMutex, portMAX_DELAY) == pdTRUE) {
+      |                            ^~~~~~~~~~~
+../Core/Src/freertos.c:106:13: warning: implicit declaration of function 'ADXL314_ReadAccel' [-Wimplicit-function-declaration]
+  106 |             ADXL314_ReadAccel(&accel_data);
+      |             ^~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:106:32: error: 'accel_data' undeclared (first use in this function)
+  106 |             ADXL314_ReadAccel(&accel_data);
+      |                                ^~~~~~~~~~
+../Core/Src/freertos.c:109:13: error: unknown type name 'AccelReading'
+  109 |             AccelReading reading;
+      |             ^~~~~~~~~~~~
+../Core/Src/freertos.c:110:20: error: request for member 'accel_x' in something not a structure or union
+  110 |             reading.accel_x = accel_data.x_g;
+      |                    ^
+../Core/Src/freertos.c:111:20: error: request for member 'accel_y' in something not a structure or union
+  111 |             reading.accel_y = accel_data.y_g;
+      |                    ^
+../Core/Src/freertos.c:112:20: error: request for member 'accel_z' in something not a structure or union
+  112 |             reading.accel_z = accel_data.z_g;
+      |                    ^
+../Core/Src/freertos.c:113:20: error: request for member 'timestamp' in something not a structure or union
+  113 |             reading.timestamp = xTaskGetTickCount();
+      |                    ^
+../Core/Src/freertos.c:117:32: error: 'accelMutex' undeclared (first use in this function)
+  117 |             if (xSemaphoreTake(accelMutex, portMAX_DELAY) == pdTRUE) {
+      |                                ^~~~~~~~~~
+../Core/Src/freertos.c:118:17: error: 'latest_accel' undeclared (first use in this function)
+  118 |                 latest_accel = reading;
+      |                 ^~~~~~~~~~~~
+../Core/Src/freertos.c:123:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  123 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:123:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:28:04 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:75:17: error: 'vTaskAccel' undeclared (first use in this function)
+   75 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:75:17: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:84:34: error: 'bme_data' undeclared (first use in this function)
+   84 |             BME280_Extract_Data(&bme_data);
+      |                                  ^~~~~~~~
+../Core/Src/freertos.c:87:13: error: unknown type name 'BMPReading'
+   87 |             BMPReading reading;
+      |             ^~~~~~~~~~
+../Core/Src/freertos.c:88:20: error: request for member 'pressure_pa' in something not a structure or union
+   88 |             reading.pressure_pa = bme_data.pressure * 100.0f;  // hPa -> Pa
+      |                    ^
+../Core/Src/freertos.c:89:20: error: request for member 'temperature' in something not a structure or union
+   89 |             reading.temperature = bme_data.temperature;
+      |                    ^
+../Core/Src/freertos.c:90:20: error: request for member 'timestamp' in something not a structure or union
+   90 |             reading.timestamp   = xTaskGetTickCount();
+      |                    ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c:93:17: error: 'latest_bmp' undeclared (first use in this function)
+   93 |                 latest_bmp = reading;
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:98:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:98:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:98:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:108:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  108 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:114:32: error: 'accel_data' undeclared (first use in this function)
+  114 |             ADXL314_ReadAccel(&accel_data);
+      |                                ^~~~~~~~~~
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c:117:13: error: unknown type name 'AccelReading'
+  117 |             AccelReading reading;
+      |             ^~~~~~~~~~~~
+../Core/Src/freertos.c:118:20: error: request for member 'accel_x' in something not a structure or union
+  118 |             reading.accel_x = accel_data.x_g;
+      |                    ^
+../Core/Src/freertos.c:119:20: error: request for member 'accel_y' in something not a structure or union
+  119 |             reading.accel_y = accel_data.y_g;
+      |                    ^
+../Core/Src/freertos.c:120:20: error: request for member 'accel_z' in something not a structure or union
+  120 |             reading.accel_z = accel_data.z_g;
+      |                    ^
+../Core/Src/freertos.c:121:20: error: request for member 'timestamp' in something not a structure or union
+  121 |             reading.timestamp = xTaskGetTickCount();
+      |                    ^
+../Core/Src/freertos.c:126:17: error: 'latest_accel' undeclared (first use in this function)
+  126 |                 latest_accel = reading;
+      |                 ^~~~~~~~~~~~
+../Core/Src/freertos.c:131:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  131 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:131:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:44:20 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Drivers/BSP/BME280/bme280.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/BME280/bme280.d" -MT"Drivers/BSP/BME280/bme280.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/BME280/bme280.o"
+arm-none-eabi-gcc "../Drivers/BSP/ADXL314/adxl314.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/BSP/ADXL314/adxl314.d" -MT"Drivers/BSP/ADXL314/adxl314.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/ADXL314/adxl314.o"
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c:55:1: error: unknown type name 'bme_data'
+   55 | bme_data latest_bmp;
+      | ^~~~~~~~
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:75:17: error: 'vTaskAccel' undeclared (first use in this function)
+   75 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:75:17: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:84:34: error: 'bme_data' undeclared (first use in this function)
+   84 |             BME280_Extract_Data(&bme_data);
+      |                                  ^~~~~~~~
+../Core/Src/freertos.c:87:21: error: expected ';' before 'reading'
+   87 |             bme_data reading;
+      |                     ^~~~~~~~
+      |                     ;
+../Core/Src/freertos.c:88:13: error: 'reading' undeclared (first use in this function)
+   88 |             reading.pressure_pa = bme_data.pressure * 100.0f;  // hPa -> Pa
+      |             ^~~~~~~
+../Core/Src/freertos.c:98:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:98:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:98:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:108:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  108 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c:114:32: error: 'accel_data' undeclared (first use in this function)
+  114 |             ADXL314_ReadAccel(&accel_data);
+      |                                ^~~~~~~~~~
+../Core/Src/freertos.c:117:13: error: unknown type name 'AccelReading'
+  117 |             AccelReading reading;
+      |             ^~~~~~~~~~~~
+../Core/Src/freertos.c:118:20: error: request for member 'accel_x' in something not a structure or union
+  118 |             reading.accel_x = accel_data.x_g;
+      |                    ^
+../Core/Src/freertos.c:119:20: error: request for member 'accel_y' in something not a structure or union
+  119 |             reading.accel_y = accel_data.y_g;
+      |                    ^
+../Core/Src/freertos.c:120:20: error: request for member 'accel_z' in something not a structure or union
+  120 |             reading.accel_z = accel_data.z_g;
+      |                    ^
+../Core/Src/freertos.c:121:20: error: request for member 'timestamp' in something not a structure or union
+  121 |             reading.timestamp = xTaskGetTickCount();
+      |                    ^
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:126:17: error: 'latest_accel' undeclared (first use in this function)
+  126 |                 latest_accel = reading;
+      |                 ^~~~~~~~~~~~
+../Core/Src/freertos.c:131:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  131 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:131:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:45:07 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:75:17: error: 'vTaskAccel' undeclared (first use in this function)
+   75 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:75:17: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:84:34: error: 'bme_data' undeclared (first use in this function)
+   84 |             BME280_Extract_Data(&bme_data);
+      |                                  ^~~~~~~~
+../Core/Src/freertos.c:98:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:98:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:98:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:108:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  108 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:114:32: error: 'accel_data' undeclared (first use in this function)
+  114 |             ADXL314_ReadAccel(&accel_data);
+      |                                ^~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c:117:13: error: unknown type name 'AccelReading'
+  117 |             AccelReading reading;
+      |             ^~~~~~~~~~~~
+../Core/Src/freertos.c:118:20: error: request for member 'accel_x' in something not a structure or union
+  118 |             reading.accel_x = accel_data.x_g;
+      |                    ^
+../Core/Src/freertos.c:119:20: error: request for member 'accel_y' in something not a structure or union
+  119 |             reading.accel_y = accel_data.y_g;
+      |                    ^
+../Core/Src/freertos.c:120:20: error: request for member 'accel_z' in something not a structure or union
+  120 |             reading.accel_z = accel_data.z_g;
+      |                    ^
+../Core/Src/freertos.c:121:20: error: request for member 'timestamp' in something not a structure or union
+  121 |             reading.timestamp = xTaskGetTickCount();
+      |                    ^
+../Core/Src/freertos.c:126:17: error: 'latest_accel' undeclared (first use in this function)
+  126 |                 latest_accel = reading;
+      |                 ^~~~~~~~~~~~
+../Core/Src/freertos.c:131:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  131 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:131:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:45:29 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:76:17: error: 'vTaskAccel' undeclared (first use in this function)
+   76 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:76:17: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:99:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   99 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:99:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   99 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:99:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:109:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  109 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c:115:32: error: 'accel_data' undeclared (first use in this function); did you mean 'bme_data'?
+  115 |             ADXL314_ReadAccel(&accel_data);
+      |                                ^~~~~~~~~~
+      |                                bme_data
+../Core/Src/freertos.c:118:13: error: unknown type name 'AccelReading'
+  118 |             AccelReading reading;
+      |             ^~~~~~~~~~~~
+../Core/Src/freertos.c:119:20: error: request for member 'accel_x' in something not a structure or union
+  119 |             reading.accel_x = accel_data.x_g;
+      |                    ^
+../Core/Src/freertos.c:120:20: error: request for member 'accel_y' in something not a structure or union
+  120 |             reading.accel_y = accel_data.y_g;
+      |                    ^
+../Core/Src/freertos.c:121:20: error: request for member 'accel_z' in something not a structure or union
+  121 |             reading.accel_z = accel_data.z_g;
+      |                    ^
+../Core/Src/freertos.c:122:20: error: request for member 'timestamp' in something not a structure or union
+  122 |             reading.timestamp = xTaskGetTickCount();
+      |                    ^
+../Core/Src/freertos.c:127:17: error: 'latest_accel' undeclared (first use in this function)
+  127 |                 latest_accel = reading;
+      |                 ^~~~~~~~~~~~
+../Core/Src/freertos.c:132:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  132 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:132:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:50:38 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:76:17: error: 'vTaskAccel' undeclared (first use in this function)
+   76 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:76:17: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:96:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   96 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:96:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   96 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:96:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:106:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  106 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:112:32: error: 'accel_data' undeclared (first use in this function); did you mean 'bme_data'?
+  112 |             ADXL314_ReadAccel(&accel_data);
+      |                                ^~~~~~~~~~
+      |                                bme_data
+../Core/Src/freertos.c:115:13: error: unknown type name 'AccelReading'
+  115 |             AccelReading reading;
+      |             ^~~~~~~~~~~~
+../Core/Src/freertos.c:116:20: error: request for member 'accel_x' in something not a structure or union
+  116 |             reading.accel_x = accel_data.x_g;
+      |                    ^
+../Core/Src/freertos.c:117:20: error: request for member 'accel_y' in something not a structure or union
+  117 |             reading.accel_y = accel_data.y_g;
+      |                    ^
+../Core/Src/freertos.c:118:20: error: request for member 'accel_z' in something not a structure or union
+  118 |             reading.accel_z = accel_data.z_g;
+      |                    ^
+../Core/Src/freertos.c:119:20: error: request for member 'timestamp' in something not a structure or union
+  119 |             reading.timestamp = xTaskGetTickCount();
+      |                    ^
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:124:17: error: 'latest_accel' undeclared (first use in this function)
+  124 |                 latest_accel = reading;
+      |                 ^~~~~~~~~~~~
+../Core/Src/freertos.c:129:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  129 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:129:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:52:19 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:78:17: error: 'vTaskAccel' undeclared (first use in this function)
+   78 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+../Core/Src/freertos.c:78:17: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:98:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:98:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:98:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:108:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  108 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:125:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  125 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:125:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:53:16 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c:65:6: error: 'vTaskAccel' declared as function returning a function
+   65 | void vTaskAccel(void *pvParameters)(void *pvParameters);
+      |      ^~~~~~~~~~
+../Core/Src/freertos.c: In function 'vSensorTasksInit':
+../Core/Src/freertos.c:78:17: warning: passing argument 1 of 'xTaskCreate' from incompatible pointer type [-Wincompatible-pointer-types]
+   78 |     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+      |                 ^~~~~~~~~~
+      |                 |
+      |                 int (*)(void *)
+In file included from ../Core/Src/freertos.c:22:
+../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:330:48: note: expected 'TaskFunction_t' {aka 'void (*)(void *)'} but argument is of type 'int (*)(void *)'
+  330 |         BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,
+      |                                 ~~~~~~~~~~~~~~~^~~~~~~~~~
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:98:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:98:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:98:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/freertos.c: At top level:
+../Core/Src/freertos.c:106:6: error: conflicting types for 'vTaskAccel'; have 'void(void *)'
+  106 | void vTaskAccel(void *pvParameters) {
+      |      ^~~~~~~~~~
+../Core/Src/freertos.c:65:6: note: previous declaration of 'vTaskAccel' with type 'int(void *)'
+   65 | void vTaskAccel(void *pvParameters)(void *pvParameters);
+      |      ^~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:108:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  108 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:125:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  125 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:125:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/freertos.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:53:26 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:98:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:27:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   26 | #include "adxl314.h"
+  +++ |+#include <stdio.h>
+   27 | 
+../Core/Src/freertos.c:98:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   98 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:98:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:108:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  108 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:125:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  125 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:125:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:143:3: error: unknown type name 'SemaphoreHandle_t'; did you mean 'xSemaphoreHandle'?
+  143 |   SemaphoreHandle_t bmpMutex;
+      |   ^~~~~~~~~~~~~~~~~
+      |   xSemaphoreHandle
+../Core/Src/main.c:143:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  143 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:489:5: warning: implicit declaration of function 'xSemaphoreGiveFromISR' [-Wimplicit-function-declaration]
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  489 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:489:27: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:54:07 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:145:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  145 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+In file included from ../Core/Src/main.c:28:
+../Core/Src/main.c: In function 'HAL_GPIO_EXTI_Callback':
+../Core/Src/main.c:491:27: error: 'accelDataReadySem' undeclared (first use in this function)
+  491 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h:624:112: note: in definition of macro 'xSemaphoreGiveFromISR'
+  624 | #define xSemaphoreGiveFromISR( xSemaphore, pxHigherPriorityTaskWoken )  xQueueGiveFromISR( ( QueueHandle_t ) ( xSemaphore ), ( pxHigherPriorityTaskWoken ) )
+      |                                                                                                                ^~~~~~~~~~
+../Core/Src/main.c:491:27: note: each undeclared identifier is reported only once for each function it appears in
+  491 |     xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+      |                           ^~~~~~~~~~~~~~~~~
+../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h:624:112: note: in definition of macro 'xSemaphoreGiveFromISR'
+  624 | #define xSemaphoreGiveFromISR( xSemaphore, pxHigherPriorityTaskWoken )  xQueueGiveFromISR( ( QueueHandle_t ) ( xSemaphore ), ( pxHigherPriorityTaskWoken ) )
+      |                                                                                                                ^~~~~~~~~~
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:58:01 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:99:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   99 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:33:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   32 | #include "shared_data.h"
+  +++ |+#include <stdio.h>
+   33 | /* USER CODE END Includes */
+../Core/Src/freertos.c:99:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   99 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:99:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:144:21: warning: unused variable 'bmpMutex' [-Wunused-variable]
+  144 |   SemaphoreHandle_t bmpMutex;
+      |                     ^~~~~~~~
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:109:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  109 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:126:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  126 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:126:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mailm\Desktop\localsh1\Projects\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: godwilling.elf
+ 
+arm-none-eabi-size  godwilling.elf 
+arm-none-eabi-objdump -h -S godwilling.elf  > "godwilling.list"
+   text	   data	    bss	    dec	    hex	filename
+  43772	    492	  21276	  65540	  10004	godwilling.elf
+Finished building: default.size.stdout
+ 
+Finished building: godwilling.list
+ 
+22:58:42 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mailm\Desktop\localsh1\Projects\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: godwilling.elf
+ 
+arm-none-eabi-size  godwilling.elf 
+arm-none-eabi-objdump -h -S godwilling.elf  > "godwilling.list"
+   text	   data	    bss	    dec	    hex	filename
+  43772	    492	  21276	  65540	  10004	godwilling.elf
+Finished building: default.size.stdout
+ 
+Finished building: godwilling.list
+ 
+22:59:50 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/freertos.c: In function 'vTaskBMP':
+../Core/Src/freertos.c:99:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   99 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:33:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   32 | #include "shared_data.h"
+  +++ |+#include <stdio.h>
+   33 | /* USER CODE END Includes */
+../Core/Src/freertos.c:99:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   99 |             printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+      |             ^~~~~~
+../Core/Src/freertos.c:99:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/freertos.c: In function 'vTaskAccel':
+../Core/Src/freertos.c:109:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
+  109 |     ADXL_Configure_Int();
+      |     ^~~~~~~~~~~~~~~~~~
+../Core/Src/freertos.c:126:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+  126 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
+      |             ^~~~~~
+../Core/Src/freertos.c:126:13: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:199:32: error: 'bme_data' undeclared (first use in this function)
+  199 |           BME280_Extract_Data(&bme_data);
+      |                                ^~~~~~~~
+../Core/Src/main.c:199:32: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:40: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+23:01:15 **** Incremental Build of configuration Debug for project godwilling ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mailm\Desktop\localsh1\Projects\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: godwilling.elf
+ 
+arm-none-eabi-size  godwilling.elf 
+arm-none-eabi-objdump -h -S godwilling.elf  > "godwilling.list"
+   text	   data	    bss	    dec	    hex	filename
+  46092	    492	  21348	  67932	  1095c	godwilling.elf
+Finished building: default.size.stdout
+ 
+Finished building: godwilling.list
+ 

@@ -22,9 +22,14 @@
 #include "task.h"
 #include "main.h"
 
+
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "semphr.h"
+#include "bme280.h"
+#include "adxl314.h"
+#include "shared_data.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,16 +49,83 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
+SemaphoreHandle_t spiBusMutex;
+SemaphoreHandle_t bmpMutex;
+SemaphoreHandle_t accelMutex;
+SemaphoreHandle_t accelDataReadySem;
+BME280_Data_t latest_bmp;
+BME280_Data_t bme_data;
+ADXL314_Data_t accel_data;
+ADXL314_Data_t latest_accel;
 /* USER CODE END Variables */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-
+void vTaskBMP(void *pvParameters);
+void vSensorTasksInit(void);
+void vTaskAccel(void *pvParameters);
 /* USER CODE END FunctionPrototypes */
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
+void vSensorTasksInit(void) {
+    spiBusMutex = xSemaphoreCreateMutex();
+    bmpMutex = xSemaphoreCreateMutex();
+    accelMutex = xSemaphoreCreateMutex();
+    accelDataReadySem = xSemaphoreCreateBinary();
+
+    xTaskCreate(vTaskBMP, "BMP", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+    xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
+}
+
+
+void vTaskBMP(void *pvParameters) {
+    BME280_Init();
+
+    for (;;) {
+        if (xSemaphoreTake(spiBusMutex, portMAX_DELAY) == pdTRUE) {
+            BME280_Extract_Data(&bme_data);
+            bme_data.timestamp = xTaskGetTickCount();
+            xSemaphoreGive(spiBusMutex);
+
+
+            if (xSemaphoreTake(bmpMutex, portMAX_DELAY) == pdTRUE) {
+                latest_bmp = bme_data;
+                xSemaphoreGive(bmpMutex);
+            }
+
+            // debug only — remove once telemetry/logging consume latest_bmp instead
+            printf("TEMP: %.2f C, PRES: %.2f hPa\r\n", latest_bmp.temperature, latest_bmp.pressure);
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+
+
+void vTaskAccel(void *pvParameters) {
+    ADXL314_Init();
+    ADXL_Configure_Int();
+
+    for (;;) {
+        xSemaphoreTake(accelDataReadySem, portMAX_DELAY);
+
+        if (xSemaphoreTake(spiBusMutex, portMAX_DELAY) == pdTRUE) {
+            ADXL314_ReadAccel(&accel_data);
+            accel_data.timestamp =xTaskGetTickCount();
+            xSemaphoreGive(spiBusMutex);
+
+
+            if (xSemaphoreTake(accelMutex, portMAX_DELAY) == pdTRUE) {
+                latest_accel = accel_data;
+                xSemaphoreGive(accelMutex);
+            }
+
+            // debug only — remove once dead-reckoning task consumes latest_accel instead
+            printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
+        }
+    }
+}
 /* USER CODE END Application */
 

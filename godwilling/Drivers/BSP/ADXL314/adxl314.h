@@ -15,6 +15,7 @@ typedef struct
   float x_g;
   float y_g;
   float z_g;
+  uint32_t timestamp;
 } ADXL314_Data_t;
 
 uint8_t ADXL314_ReadReg(uint8_t reg_addr);

@@ -7,6 +7,7 @@
 typedef struct {
     float temperature;
     float pressure;
+    uint32_t timestamp;
 } BME280_Data_t;
 
 // Public function prototypes
