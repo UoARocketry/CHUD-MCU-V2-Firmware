@@ -1,0 +1,378 @@
+/* USER CODE BEGIN Header */
+/**
+ ******************************************************************************
+  * @file    user_diskio.c
+  * @brief   SD card SPI-mode low-level disk I/O driver for FatFs.
+  *
+  *          Implements the SD card SPI protocol (CMD0/CMD8/ACMD41/CMD58 init
+  *          sequence, single-block CMD17/CMD24 read/write) on top of a
+  *          generic STM32 HAL SPI peripheral (hspi2) with a GPIO chip-select
+  *          line (SD_CS_GPIO_Port / SD_CS_Pin).
+  *
+  *          Auto-detects SDHC/SDXC (block addressing) vs SDSC (byte
+  *          addressing) at init time via the OCR CCS bit, so it works with
+  *          either card type without recompiling.
+  *
+  *          Uses SD_CD_GPIO_Port / SD_CD_Pin (pulled up, pulled low when a
+  *          card is inserted) to skip the init handshake and report
+  *          STA_NODISK when no card is present.
+  ******************************************************************************
+  */
+ /* USER CODE END Header */
+
+#ifdef USE_OBSOLETE_USER_CODE_SECTION_0
+/*
+ * Warning: the user section 0 is no more in use (starting from CubeMx version 4.16.0)
+ * To be suppressed in the future.
+ * Kept to ensure backward compatibility with previous CubeMx versions when
+ * migrating projects.
+ * User code previously added there should be copied in the new user sections before
+ * the section contents can be deleted.
+ */
+/* USER CODE BEGIN 0 */
+/* USER CODE END 0 */
+#endif
+
+/* USER CODE BEGIN DECL */
+
+extern SPI_HandleTypeDef hspi2;
+#define SD_SPI_HANDLE   hspi2
+
+/* Private define -------------------------------------------------------------*/
+
+/* SD SPI commands */
+#define CMD0    (0)          /* GO_IDLE_STATE */
+#define CMD1    (1)          /* SEND_OP_COND (MMC) */
+#define CMD8    (8)          /* SEND_IF_COND */
+#define CMD9    (9)          /* SEND_CSD */
+#define CMD12   (12)         /* STOP_TRANSMISSION */
+#define CMD16   (16)         /* SET_BLOCKLEN */
+#define CMD17   (17)         /* READ_SINGLE_BLOCK */
+#define CMD18   (18)         /* READ_MULTIPLE_BLOCK */
+#define CMD24   (24)         /* WRITE_BLOCK */
+#define CMD25   (25)         /* WRITE_MULTIPLE_BLOCK */
+#define CMD55   (55)         /* APP_CMD */
+#define CMD58   (58)         /* READ_OCR */
+#define ACMD41  (41)         /* SD_SEND_OP_COND (SDC) */
+
+/* Card type flags */
+#define CT_MMC      0x01
+#define CT_SD1      0x02
+#define CT_SD2      0x04
+#define CT_SDC      (CT_SD1 | CT_SD2)
+#define CT_BLOCK    0x08    /* Card uses block (not byte) addressing -- SDHC/SDXC */
+
+#define SD_TIMEOUT_MS   500
+
+/* Private variables ----------------------------------------------------------*/
+static volatile DSTATUS Stat = STA_NOINIT;
+static BYTE CardType = 0;
+
+/* USER CODE END DECL */
+
+/* Private function prototypes -----------------------------------------------*/
+DSTATUS USER_initialize (BYTE pdrv);
+DSTATUS USER_status (BYTE pdrv);
+DRESULT USER_read (BYTE pdrv, BYTE *buff, DWORD sector, UINT count);
+#if _USE_WRITE == 1
+  DRESULT USER_write (BYTE pdrv, const BYTE *buff, DWORD sector, UINT count);
+#endif /* _USE_WRITE == 1 */
+#if _USE_IOCTL == 1
+  DRESULT USER_ioctl (BYTE pdrv, BYTE cmd, void *buff);
+#endif /* _USE_IOCTL == 1 */
+
+Diskio_drvTypeDef  USER_Driver =
+{
+  USER_initialize,
+  USER_status,
+  USER_read,
+#if  _USE_WRITE
+  USER_write,
+#endif  /* _USE_WRITE == 1 */
+#if  _USE_IOCTL == 1
+  USER_ioctl,
+#endif /* _USE_IOCTL == 1 */
+};
+
+/* Private functions ---------------------------------------------------------*/
+
+/**
+  * @brief  Initializes a Drive
+  * @param  pdrv: Physical drive number (0..)
+  * @retval DSTATUS: Operation status
+  */
+DSTATUS USER_initialize (
+	BYTE pdrv           /* Physical drive nmuber to identify the drive */
+)
+{
+  /* USER CODE BEGIN INIT */
+  uint8_t n, ty, ocr[4];
+  uint32_t start;
+
+  if (pdrv != 0) return STA_NOINIT;
+
+  if (!SD_isCardPresent())
+  {
+    Stat = STA_NOINIT | STA_NODISK;
+    return Stat;
+  }
+
+  /* 74+ dummy clocks with CS high and card deselected, per SD SPI spec */
+  SD_CS_HIGH();
+  for (n = 0; n < 10; n++) SPI_RW(0xFF);
+
+  ty = 0;
+
+  if (SD_SendCmd(CMD0, 0) == 1) /* card enters idle state */
+  {
+    start = HAL_GetTick();
+
+    if (SD_SendCmd(CMD8, 0x1AA) == 1) /* SDC v2 -- check voltage range echo */
+    {
+      for (n = 0; n < 4; n++) ocr[n] = SPI_RW(0xFF);
+
+      if (ocr[2] == 0x01 && ocr[3] == 0xAA)
+      {
+        /* Card supports 2.7-3.6V, proceed with ACMD41 (HCS bit set) */
+        while (((HAL_GetTick() - start) < SD_TIMEOUT_MS) &&
+               (SD_SendCmd(ACMD41, 1UL << 30) != 0)) { /* retry */ }
+
+        if (((HAL_GetTick() - start) < SD_TIMEOUT_MS) &&
+            (SD_SendCmd(CMD58, 0) == 0)) /* read OCR to check CCS bit */
+        {
+          for (n = 0; n < 4; n++) ocr[n] = SPI_RW(0xFF);
+          ty = (ocr[0] & 0x40) ? (CT_SD2 | CT_BLOCK) : CT_SD2; /* CCS bit -> block addressing */
+        }
+      }
+    }
+    else /* SDC v1 or MMC */
+    {
+      BYTE cmd;
+      if (SD_SendCmd(ACMD41, 0) <= 1)
+      {
+        ty = CT_SD1;
+        cmd = ACMD41;
+      }
+      else
+      {
+        ty = CT_MMC;
+        cmd = CMD1;
+      }
+
+      while (((HAL_GetTick() - start) < SD_TIMEOUT_MS) &&
+             (SD_SendCmd(cmd, 0) != 0)) { /* retry */ }
+
+      /* Fix block length to 512 bytes for byte-addressed cards */
+      if (!(ty && (SD_SendCmd(CMD16, 512) == 0))) ty = 0;
+    }
+  }
+
+  CardType = ty;
+  SD_Deselect();
+
+  if (ty)
+  {
+    Stat &= ~STA_NOINIT;
+  }
+  else
+  {
+    Stat = STA_NOINIT;
+  }
+
+  return Stat;
+  /* USER CODE END INIT */
+}
+
+/**
+  * @brief  Gets Disk Status
+  * @param  pdrv: Physical drive number (0..)
+  * @retval DSTATUS: Operation status
+  */
+DSTATUS USER_status (
+	BYTE pdrv       /* Physical drive number to identify the drive */
+)
+{
+  /* USER CODE BEGIN STATUS */
+  if (pdrv != 0) return STA_NOINIT;
+
+  if (!SD_isCardPresent())
+  {
+    Stat = STA_NOINIT | STA_NODISK;
+  }
+
+  return Stat;
+  /* USER CODE END STATUS */
+}
+
+/**
+  * @brief  Reads Sector(s)
+  * @param  pdrv: Physical drive number (0..)
+  * @param  *buff: Data buffer to store read data
+  * @param  sector: Sector address (LBA)
+  * @param  count: Number of sectors to read (1..128)
+  * @retval DRESULT: Operation result
+  */
+DRESULT USER_read (
+	BYTE pdrv,      /* Physical drive nmuber to identify the drive */
+	BYTE *buff,     /* Data buffer to store read data */
+	DWORD sector,   /* Sector address in LBA */
+	UINT count      /* Number of sectors to read */
+)
+{
+  /* USER CODE BEGIN READ */
+  if (pdrv != 0 || count == 0) return RES_PARERR;
+  if (Stat & STA_NOINIT) return RES_NOTRDY;
+
+  /* Convert to byte address if card uses byte (not block) addressing */
+  if (!(CardType & CT_BLOCK)) sector *= 512;
+
+  if (count == 1)
+  {
+    if ((SD_SendCmd(CMD17, sector) == 0) && SD_RxDataBlock(buff, 512))
+    {
+      count = 0;
+    }
+  }
+  else
+  {
+    /* Single-block loop for simplicity/robustness */
+    if (SD_SendCmd(CMD17, sector) == 0)
+    {
+      do
+      {
+        if (!SD_RxDataBlock(buff, 512)) break;
+        buff += 512;
+        sector += (CardType & CT_BLOCK) ? 1 : 512;
+      } while (--count);
+    }
+  }
+
+  SD_Deselect();
+
+  return count ? RES_ERROR : RES_OK;
+  /* USER CODE END READ */
+}
+
+/**
+  * @brief  Writes Sector(s)
+  * @param  pdrv: Physical drive number (0..)
+  * @param  *buff: Data to be written
+  * @param  sector: Sector address (LBA)
+  * @param  count: Number of sectors to write (1..128)
+  * @retval DRESULT: Operation result
+  */
+#if _USE_WRITE == 1
+DRESULT USER_write (
+	BYTE pdrv,          /* Physical drive nmuber to identify the drive */
+	const BYTE *buff,   /* Data to be written */
+	DWORD sector,       /* Sector address in LBA */
+	UINT count          /* Number of sectors to write */
+)
+{
+  /* USER CODE BEGIN WRITE */
+  if (pdrv != 0 || count == 0) return RES_PARERR;
+  if (Stat & STA_NOINIT) return RES_NOTRDY;
+  if (Stat & STA_PROTECT) return RES_WRPRT;
+
+  if (!(CardType & CT_BLOCK)) sector *= 512;
+
+  if (count == 1)
+  {
+    if ((SD_SendCmd(CMD24, sector) == 0) && SD_TxDataBlock(buff, 0xFE))
+    {
+      count = 0;
+    }
+  }
+  else
+  {
+    do
+    {
+      if (SD_SendCmd(CMD24, sector) != 0) break;
+      if (!SD_TxDataBlock(buff, 0xFE)) break;
+      buff += 512;
+      sector += (CardType & CT_BLOCK) ? 1 : 512;
+    } while (--count);
+  }
+
+  SD_Deselect();
+
+  return count ? RES_ERROR : RES_OK;
+  /* USER CODE END WRITE */
+}
+#endif /* _USE_WRITE == 1 */
+
+/**
+  * @brief  I/O control operation
+  * @param  pdrv: Physical drive number (0..)
+  * @param  cmd: Control code
+  * @param  *buff: Buffer to send/receive control data
+  * @retval DRESULT: Operation result
+  */
+#if _USE_IOCTL == 1
+DRESULT USER_ioctl (
+	BYTE pdrv,      /* Physical drive nmuber (0..) */
+	BYTE cmd,       /* Control code */
+	void *buff      /* Buffer to send/receive control data */
+)
+{
+  /* USER CODE BEGIN IOCTL */
+  DRESULT res = RES_ERROR;
+
+  if (pdrv != 0) return RES_PARERR;
+  if (Stat & STA_NOINIT) return RES_NOTRDY;
+
+  switch (cmd)
+  {
+    case CTRL_SYNC:
+      if (SD_Select())
+      {
+        SD_Deselect();
+        res = RES_OK;
+      }
+      break;
+
+    case GET_SECTOR_SIZE:
+      *(WORD *)buff = 512;
+      res = RES_OK;
+      break;
+
+    case GET_BLOCK_SIZE:
+      *(DWORD *)buff = 1;
+      res = RES_OK;
+      break;
+
+    case GET_SECTOR_COUNT:
+    {
+      BYTE csd[16];
+      DWORD cap;
+
+      if ((SD_SendCmd(CMD9, 0) == 0) && SD_RxDataBlock(csd, 16))
+      {
+        if ((csd[0] >> 6) == 1) /* CSD version 2.0 (SDHC/SDXC) */
+        {
+          DWORD csize = ((DWORD)(csd[7] & 0x3F) << 16) | ((DWORD)csd[8] << 8) | csd[9];
+          cap = (csize + 1) * 1024; /* sectors (512B each) */
+        }
+        else /* CSD version 1.0 (SDSC) */
+        {
+          DWORD csize = ((DWORD)(csd[6] & 0x03) << 10) | ((DWORD)csd[7] << 2) | (csd[8] >> 6);
+          BYTE n = (csd[9] & 0x03) + ((csd[10] & 0x80) >> 7) + ((csd[5] & 0x0F) << 1) + 2;
+          cap = (csize + 1) << (n - 9);
+        }
+        *(DWORD *)buff = cap;
+        res = RES_OK;
+      }
+      SD_Deselect();
+      break;
+    }
+
+    default:
+      res = RES_PARERR;
+      break;
+  }
+
+  return res;
+  /* USER CODE END IOCTL */
+}
+#endif /* _USE_IOCTL == 1 */
+
