@@ -26,24 +26,19 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdbool.h>
 #include "semphr.h"
 #include "bme280.h"
 #include "adxl314.h"
 #include "shared_data.h"
-#include "sd.h"
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define SD_LOG_PERIOD_MS 20
 
 /* USER CODE END PD */
 
@@ -70,7 +65,6 @@ void vTaskBMP(void *pvParameters);
 void vSensorTasksInit(void);
 void vTaskAccel(void *pvParameters);
 void vDeadReckoningTask(void *pvParameters);
-void vTaskSDLog(void *pvParameters);
 /* USER CODE END FunctionPrototypes */
 
 /* Private application code --------------------------------------------------*/
@@ -85,7 +79,6 @@ void vSensorTasksInit(void) {
     xTaskCreate(vTaskBMP, "BMP", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
     xTaskCreate(vDeadReckoningTask, "DeadReckoning", 512, NULL, tskIDLE_PRIORITY + 4, NULL);
-    xTaskCreate(vTaskSDLog, "SDLog", 512, NULL, tskIDLE_PRIORITY + 1, NULL);
 }
 
 
@@ -134,45 +127,6 @@ void vTaskAccel(void *pvParameters) {
             // debug only — remove once dead-reckoning task consumes latest_accel instead
             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
         }
-    }
-}
-
-void vTaskSDLog(void *pvParameters) {
-    (void)pvParameters;
-
-    if (!SDLogger_Init()) {
-        printf("SD logger failed to initialize\r\n");
-    }
-
-    TickType_t last_wake_time = xTaskGetTickCount();
-    const TickType_t period_ticks = pdMS_TO_TICKS(SD_LOG_PERIOD_MS);
-
-    for (;;) {
-        float pressure_pa, temperature;
-        xSemaphoreTake(bmpMutex, portMAX_DELAY);
-        pressure_pa = latest_bmp.pressure;
-        temperature = latest_bmp.temperature;
-        xSemaphoreGive(bmpMutex);
-
-        float ax, ay, az;
-        xSemaphoreTake(accelMutex, portMAX_DELAY);
-        ax = latest_accel.x_g;
-        ay = latest_accel.y_g;
-        az = latest_accel.z_g;
-        xSemaphoreGive(accelMutex);
-
-        bool apogee = apogee_has_occurred();
-        uint32_t t_ms = xTaskGetTickCount() * (1000 / configTICK_RATE_HZ);
-
-        char line[128];
-        snprintf(line, sizeof(line),
-                 "%lu,%.2f,%.2f,%.3f,%.3f,%.3f,%d\r\n",
-                 (unsigned long)t_ms, pressure_pa, temperature,
-                 ax, ay, az, apogee ? 1 : 0);
-
-        SDLogger_WriteLine(line);
-
-        vTaskDelayUntil(&last_wake_time, period_ticks);
     }
 }
 /* USER CODE END Application */

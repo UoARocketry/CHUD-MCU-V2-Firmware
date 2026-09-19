@@ -51,7 +51,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/BSP/BMP585/bmp585.h ../Drivers/BSP/BME280/bme280.h \
  ../Drivers/BSP/Ra02/ra02.h ../Drivers/BSP/ADXL314/adxl314.h \
  ../Drivers/BSP/IMU/imu.h ../Drivers/BSP/GNSS/gnss.h \
- ../Core/Inc/shared_data.h
+ ../Core/Inc/shared_data.h \
+ C:/Users/mailm/Desktop/localsh1/Projects/CHUD-MCU-V2-Firmware/godwilling/Drivers/BSP/SD/sd.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -112,3 +113,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/BSP/IMU/imu.h:
 ../Drivers/BSP/GNSS/gnss.h:
 ../Core/Inc/shared_data.h:
+C:/Users/mailm/Desktop/localsh1/Projects/CHUD-MCU-V2-Firmware/godwilling/Drivers/BSP/SD/sd.h:

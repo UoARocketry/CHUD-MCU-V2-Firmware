@@ -43,15 +43,6 @@ uint8_t SDLogger_Init(void)
 
   printf("SD: file open OK, current size=%lu bytes\r\n", (unsigned long)f_size(&log_file));
 
-  if (f_size(&log_file) == 0) {
-      const char *header = "time_ms,pressure_pa,temperature_c,accel_x_g,accel_y_g,accel_z_g,apogee\r\n";
-      UINT bytes_written;
-      f_write(&log_file, header, strlen(header), &bytes_written);
-      f_sync(&log_file);
-  }
-
-
-
   sd_ready = 1;
   return 1;
 }

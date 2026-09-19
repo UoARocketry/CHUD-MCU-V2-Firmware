@@ -26,7 +26,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdbool.h>
 #include "semphr.h"
 #include "bme280.h"
 #include "adxl314.h"
@@ -70,7 +69,6 @@ void vTaskBMP(void *pvParameters);
 void vSensorTasksInit(void);
 void vTaskAccel(void *pvParameters);
 void vDeadReckoningTask(void *pvParameters);
-void vTaskSDLog(void *pvParameters);
 /* USER CODE END FunctionPrototypes */
 
 /* Private application code --------------------------------------------------*/
@@ -85,7 +83,6 @@ void vSensorTasksInit(void) {
     xTaskCreate(vTaskBMP, "BMP", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
     xTaskCreate(vTaskAccel, "Accel", 256, NULL, tskIDLE_PRIORITY + 3, NULL);
     xTaskCreate(vDeadReckoningTask, "DeadReckoning", 512, NULL, tskIDLE_PRIORITY + 4, NULL);
-    xTaskCreate(vTaskSDLog, "SDLog", 512, NULL, tskIDLE_PRIORITY + 1, NULL);
 }
 
 

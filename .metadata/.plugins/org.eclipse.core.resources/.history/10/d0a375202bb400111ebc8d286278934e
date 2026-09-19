@@ -26,7 +26,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdbool.h>
 #include "semphr.h"
 #include "bme280.h"
 #include "adxl314.h"
@@ -70,7 +69,6 @@ void vTaskBMP(void *pvParameters);
 void vSensorTasksInit(void);
 void vTaskAccel(void *pvParameters);
 void vDeadReckoningTask(void *pvParameters);
-void vTaskSDLog(void *pvParameters);
 /* USER CODE END FunctionPrototypes */
 
 /* Private application code --------------------------------------------------*/
