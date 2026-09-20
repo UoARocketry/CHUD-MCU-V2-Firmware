@@ -43,14 +43,13 @@ void apogee_reset(void)
 {
     apogee.last_altitude_m = 0.0f;
     apogee.falling_count = 0;
-    apogee.armed = true;
+    apogee.armed = false;
     apogee.apogee_detected = false;
     apogee.apogee_altitude_m = 0.0f;
 }
 
 bool apogee_check(float baro_altitude_m)
 {
-
     if (apogee.apogee_detected) return false;
 
     float dr_vx, dr_vy, z_vel;
@@ -80,10 +79,6 @@ bool apogee_check(float baro_altitude_m)
         apogee.apogee_altitude_m = baro_altitude_m;
         return true;
     }
-    else{
-        printf("APOGEE NOT DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
-    }
-
     return false;
 }
 

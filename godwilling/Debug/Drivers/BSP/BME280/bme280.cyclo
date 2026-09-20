@@ -1,8 +1,8 @@
-../Drivers/BSP/BME280/bme280.c:31:6:BME280_Init	2
-../Drivers/BSP/BME280/bme280.c:55:6:BME280_Extract_Data	1
-../Drivers/BSP/BME280/bme280.c:76:16:readRegister	1
-../Drivers/BSP/BME280/bme280.c:88:13:writeRegister	1
-../Drivers/BSP/BME280/bme280.c:98:13:readMultiByte	1
-../Drivers/BSP/BME280/bme280.c:109:13:readCalibrationData	1
-../Drivers/BSP/BME280/bme280.c:127:16:compensateTemperature	1
-../Drivers/BSP/BME280/bme280.c:136:17:compensatePressure	2
+../Drivers/BSP/BME280/bme280.c:32:6:BME280_Init	2
+../Drivers/BSP/BME280/bme280.c:59:6:BME280_Extract_Data	1
+../Drivers/BSP/BME280/bme280.c:80:16:readRegister	1
+../Drivers/BSP/BME280/bme280.c:92:13:writeRegister	1
+../Drivers/BSP/BME280/bme280.c:102:13:readMultiByte	1
+../Drivers/BSP/BME280/bme280.c:113:13:readCalibrationData	1
+../Drivers/BSP/BME280/bme280.c:131:16:compensateTemperature	1
+../Drivers/BSP/BME280/bme280.c:140:17:compensatePressure	2

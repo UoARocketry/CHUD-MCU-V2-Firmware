@@ -45,7 +45,6 @@ void BME280_Init(void) {
   // Read calibration parameters from the sensor memory
   readCalibrationData();
 
-  // config: t_sb=000 (0.5ms standby), filter=010 (IIR coeff 4), spi3w_en=0
   writeRegister(BME280_REG_CONFIG, 0x08);
 
   // Configure sensor: normal mode, temperature oversampling = 1, pressure oversampling = 1

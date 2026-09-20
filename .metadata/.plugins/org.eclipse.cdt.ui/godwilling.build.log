@@ -1,10 +1,33 @@
-15:30:53 **** Incremental Build of configuration Debug for project godwilling ****
+17:47:21 **** Incremental Build of configuration Debug for project godwilling ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/apogee_task.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"C:/Users/mailm/Desktop/localsh1/Projects/CHUD-MCU-V2-Firmware/godwilling/Drivers/BSP/SD" -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/apogee_task.d" -MT"Core/Src/apogee_task.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/apogee_task.o"
+../Core/Src/apogee_task.c: In function 'apogee_check':
+../Core/Src/apogee_task.c:79:9: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   79 |         printf("APOGEE DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
+      |         ^~~~~~
+../Core/Src/apogee_task.c:10:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    9 | #include "shared_data.h"
+  +++ |+#include <stdio.h>
+   10 | 
+../Core/Src/apogee_task.c:79:9: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   79 |         printf("APOGEE DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
+      |         ^~~~~~
+../Core/Src/apogee_task.c:79:9: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/apogee_task.c:84:9: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+   84 |         printf("APOGEE NOT DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
+      |         ^~~~~~
+../Core/Src/apogee_task.c:84:9: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mailm\Desktop\localsh1\Projects\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: godwilling.elf
+ 
 arm-none-eabi-size  godwilling.elf 
+arm-none-eabi-objdump -h -S godwilling.elf  > "godwilling.list"
    text	   data	    bss	    dec	    hex	filename
-  60916	    492	  23636	  85044	  14c34	godwilling.elf
+  64484	    492	  23684	  88660	  15a54	godwilling.elf
 Finished building: default.size.stdout
  
+Finished building: godwilling.list
+ 
 
-15:30:54 Build Finished. 0 errors, 0 warnings. (took 951ms)
+17:47:28 Build Finished. 0 errors, 3 warnings. (took 6s.960ms)
 

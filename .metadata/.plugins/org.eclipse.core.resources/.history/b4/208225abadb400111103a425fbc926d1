@@ -43,14 +43,13 @@ void apogee_reset(void)
 {
     apogee.last_altitude_m = 0.0f;
     apogee.falling_count = 0;
-    apogee.armed = true;
+    apogee.armed = false;
     apogee.apogee_detected = false;
     apogee.apogee_altitude_m = 0.0f;
 }
 
 bool apogee_check(float baro_altitude_m)
 {
-
     if (apogee.apogee_detected) return false;
 
     float dr_vx, dr_vy, z_vel;
@@ -76,14 +75,9 @@ bool apogee_check(float baro_altitude_m)
     if (apogee.falling_count >= APOGEE_CONFIRM_COUNT)
     {
         apogee.apogee_detected = true;
-        printf("APOGEE DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
         apogee.apogee_altitude_m = baro_altitude_m;
         return true;
     }
-    else{
-        printf("APOGEE NOT DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
-    }
-
     return false;
 }
 
@@ -124,58 +118,58 @@ bool deploy_was_logged(void)
 
 #define DR_TASK_PERIOD_MS 20
 
-void vDeadReckoningTask(void *pvParameters)
-{
-    (void)pvParameters;
-
-    deployLogMutex = xSemaphoreCreateMutex();
-
-    dr_reset();
-    apogee_reset();
-
-    vTaskDelay(pdMS_TO_TICKS(100)); // let vTaskBMP produce a first real reading
-
-    float ground_pressure_pa = 0.0f;
-    const int GROUND_CAL_SAMPLES = 16;
-    for (int i = 0; i < GROUND_CAL_SAMPLES; i++)
-    {
-        xSemaphoreTake(bmpMutex, portMAX_DELAY);
-        ground_pressure_pa += latest_bmp.pressure; // confirm this is Pa, not hPa, per earlier conversion
-        xSemaphoreGive(bmpMutex);
-        vTaskDelay(pdMS_TO_TICKS(20));
-    }
-    ground_pressure_pa /= GROUND_CAL_SAMPLES;
-
-    TickType_t last_wake_time = xTaskGetTickCount();
-    const TickType_t period_ticks = pdMS_TO_TICKS(DR_TASK_PERIOD_MS);
-
-    for (;;)
-    {
-        float ax, ay, az;
-        xSemaphoreTake(accelMutex, portMAX_DELAY);
-        ax = latest_accel.x_g * GRAVITY_MS2;
-        ay = latest_accel.y_g * GRAVITY_MS2;
-        az = (latest_accel.z_g * GRAVITY_MS2) - GRAVITY_MS2; // crude gravity removal, Z-axis-up assumption only
-        xSemaphoreGive(accelMutex);
-
-        dr_update(ax, ay, az);
-
-        float pressure_pa;
-        xSemaphoreTake(bmpMutex, portMAX_DELAY);
-        pressure_pa = latest_bmp.pressure;
-        xSemaphoreGive(bmpMutex);
-
-        float baro_altitude_m = pressure_to_altitude_m(pressure_pa, ground_pressure_pa);
-
-        float dr_x, dr_y, dr_z_unused;
-        dr_get_position(&dr_x, &dr_y, &dr_z_unused);
-        dr_correct_position(dr_x, dr_y, baro_altitude_m);
-
-        if (apogee_check(baro_altitude_m))
-        {
-            deploy_recovery();
-        }
-
-        vTaskDelayUntil(&last_wake_time, period_ticks);
-    }
-}
+//void vDeadReckoningTask(void *pvParameters)
+//{
+//    (void)pvParameters;
+//
+//    deployLogMutex = xSemaphoreCreateMutex();
+//
+//    dr_reset();
+//    apogee_reset();
+//
+//    vTaskDelay(pdMS_TO_TICKS(100)); // let vTaskBMP produce a first real reading
+//
+//    float ground_pressure_pa = 0.0f;
+//    const int GROUND_CAL_SAMPLES = 16;
+//    for (int i = 0; i < GROUND_CAL_SAMPLES; i++)
+//    {
+//        xSemaphoreTake(bmpMutex, portMAX_DELAY);
+//        ground_pressure_pa += latest_bmp.pressure; // confirm this is Pa, not hPa, per earlier conversion
+//        xSemaphoreGive(bmpMutex);
+//        vTaskDelay(pdMS_TO_TICKS(20));
+//    }
+//    ground_pressure_pa /= GROUND_CAL_SAMPLES;
+//
+//    TickType_t last_wake_time = xTaskGetTickCount();
+//    const TickType_t period_ticks = pdMS_TO_TICKS(DR_TASK_PERIOD_MS);
+//
+//    for (;;)
+//    {
+//        float ax, ay, az;
+//        xSemaphoreTake(accelMutex, portMAX_DELAY);
+//        ax = latest_accel.x_g * GRAVITY_MS2;
+//        ay = latest_accel.y_g * GRAVITY_MS2;
+//        az = (latest_accel.z_g * GRAVITY_MS2) - GRAVITY_MS2; // crude gravity removal, Z-axis-up assumption only
+//        xSemaphoreGive(accelMutex);
+//
+//        dr_update(ax, ay, az);
+//
+//        float pressure_pa;
+//        xSemaphoreTake(bmpMutex, portMAX_DELAY);
+//        pressure_pa = latest_bmp.pressure;
+//        xSemaphoreGive(bmpMutex);
+//
+//        float baro_altitude_m = pressure_to_altitude_m(pressure_pa, ground_pressure_pa);
+//
+//        float dr_x, dr_y, dr_z_unused;
+//        dr_get_position(&dr_x, &dr_y, &dr_z_unused);
+//        dr_correct_position(dr_x, dr_y, baro_altitude_m);
+//
+//        if (apogee_check(baro_altitude_m))
+//        {
+//            deploy_recovery();
+//        }
+//
+//        vTaskDelayUntil(&last_wake_time, period_ticks);
+//    }
+//}

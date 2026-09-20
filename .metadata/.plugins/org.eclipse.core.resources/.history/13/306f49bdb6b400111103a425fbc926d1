@@ -81,7 +81,7 @@ bool apogee_check(float baro_altitude_m)
         return true;
     }
     else{
-        printf("APOGEE NOT DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
+        printf("APOGEE DETECTED: altitude=%.2f m\r\n", baro_altitude_m);
     }
 
     return false;

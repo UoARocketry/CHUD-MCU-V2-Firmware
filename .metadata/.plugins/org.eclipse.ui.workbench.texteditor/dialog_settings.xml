@@ -3,6 +3,10 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="ntegrate"/>
+		<item value="dr_update"/>
+		<item value="printf"/>
+		<item value="hello"/>
 		<item value="Hal_delay"/>
 		<item value="adxl"/>
 		<item value="HAL_GPIO_WritePin"/>
