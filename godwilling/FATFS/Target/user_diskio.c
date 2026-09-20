@@ -293,7 +293,7 @@ DSTATUS USER_initialize (
 
   {
     BYTE cmd0_res = SD_SendCmd(CMD0, 0);
-    printf("SD: CMD0 response = 0x%02X\r\n", cmd0_res);
+//    printf("SD: CMD0 response = 0x%02X\r\n", cmd0_res);
 
     if (cmd0_res == 1) /* card enters idle state */
     {
@@ -301,19 +301,19 @@ DSTATUS USER_initialize (
 
     if (SD_SendCmd(CMD8, 0x1AA) == 1) /* SDC v2 -- check voltage range echo */
     {
-      printf("SD: CMD8 OK (v2 card)\r\n");
+//      printf("SD: CMD8 OK (v2 card)\r\n");
       for (n = 0; n < 4; n++) ocr[n] = SPI_RW(0xFF);
 
       if (ocr[2] == 0x01 && ocr[3] == 0xAA)
       {
-        printf("SD: voltage echo OK, running ACMD41...\r\n");
+//        printf("SD: voltage echo OK, running ACMD41...\r\n");
         /* Card supports 2.7-3.6V, proceed with ACMD41 (HCS bit set) */
         while (((HAL_GetTick() - start) < SD_TIMEOUT_MS) &&
                (SD_SendCmd(ACMD41, 1UL << 30) != 0)) { /* retry */ }
 
         if ((HAL_GetTick() - start) >= SD_TIMEOUT_MS)
         {
-          printf("SD: ACMD41 timed out\r\n");
+//          printf("SD: ACMD41 timed out\r\n");
         }
 
         if (((HAL_GetTick() - start) < SD_TIMEOUT_MS) &&
@@ -321,21 +321,21 @@ DSTATUS USER_initialize (
         {
           for (n = 0; n < 4; n++) ocr[n] = SPI_RW(0xFF);
           ty = (ocr[0] & 0x40) ? (CT_SD2 | CT_BLOCK) : CT_SD2; /* CCS bit -> block addressing */
-          printf("SD: CMD58 OK, CardType=0x%02X\r\n", ty);
+//          printf("SD: CMD58 OK, CardType=0x%02X\r\n", ty);
         }
         else
         {
-          printf("SD: CMD58 failed\r\n");
+//          printf("SD: CMD58 failed\r\n");
         }
       }
       else
       {
-        printf("SD: voltage echo mismatch (ocr2=0x%02X ocr3=0x%02X)\r\n", ocr[2], ocr[3]);
+//        printf("SD: voltage echo mismatch (ocr2=0x%02X ocr3=0x%02X)\r\n", ocr[2], ocr[3]);
       }
     }
     else /* SDC v1 or MMC */
     {
-      printf("SD: CMD8 rejected -- trying v1/MMC path\r\n");
+//      printf("SD: CMD8 rejected -- trying v1/MMC path\r\n");
       BYTE cmd;
       if (SD_SendCmd(ACMD41, 0) <= 1)
       {
@@ -357,7 +357,7 @@ DSTATUS USER_initialize (
     }
     else
     {
-      printf("SD: CMD0 FAILED -- no response from card (check wiring/CS/clock)\r\n");
+//      printf("SD: CMD0 FAILED -- no response from card (check wiring/CS/clock)\r\n");
     }
   }
 
@@ -413,7 +413,7 @@ DRESULT USER_read (
   /* Convert to byte address if card uses byte (not block) addressing */
   if (!(CardType & CT_BLOCK)) sector *= 512;
 
-  printf("SD: read sector=%lu count=%u\r\n", (unsigned long)sector, count);
+//  printf("SD: read sector=%lu count=%u\r\n", (unsigned long)sector, count);
 
   if (count == 1)
   {
@@ -440,7 +440,7 @@ DRESULT USER_read (
 
   {
     DRESULT rres = count ? RES_ERROR : RES_OK;
-    printf("SD: read result=%d\r\n", rres);
+//    printf("SD: read result=%d\r\n", rres);
     return rres;
   }
   /* USER CODE END READ */
@@ -464,7 +464,7 @@ DRESULT USER_write (
 
   if (!(CardType & CT_BLOCK)) sector *= 512;
 
-  printf("SD: write sector=%lu count=%u\r\n", (unsigned long)sector, count);
+//  printf("SD: write sector=%lu count=%u\r\n", (unsigned long)sector, count);
 
   if (count == 1)
   {
@@ -488,7 +488,7 @@ DRESULT USER_write (
 
   {
     DRESULT wres = count ? RES_ERROR : RES_OK;
-    printf("SD: write result=%d\r\n", wres);
+//    printf("SD: write result=%d\r\n", wres);
     return wres;
   }
   /* USER CODE END WRITE */

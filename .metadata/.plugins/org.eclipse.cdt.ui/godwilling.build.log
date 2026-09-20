@@ -1,54 +1,10 @@
-01:09:07 **** Incremental Build of configuration Debug for project godwilling ****
+15:30:53 **** Incremental Build of configuration Debug for project godwilling ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I"C:/Users/mailm/Desktop/localsh1/Projects/CHUD-MCU-V2-Firmware/godwilling/Drivers/BSP/SD" -I../Drivers/BSP/BME280 -I../Drivers/BSP/GNSS -I../Drivers/BSP/IMU -I../Drivers/BSP/ADXL314 -I../Drivers/BSP/Ra02 -I../Drivers/BSP/BMP585 -I../FATFS/Target -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/Third_Party/FatFs/src -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
-../Core/Src/freertos.c: In function 'vTaskBMP':
-../Core/Src/freertos.c:108:13: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
-  108 |             printf("TEMP: %.2f C, PRES: %.2f Pa\r\n", latest_bmp.temperature, latest_bmp.pressure);
-      |             ^~~~~~
-../Core/Src/freertos.c:35:1: note: include '<stdio.h>' or provide a declaration of 'printf'
-   34 | #include "sd.h"
-  +++ |+#include <stdio.h>
-   35 | 
-../Core/Src/freertos.c:108:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
-  108 |             printf("TEMP: %.2f C, PRES: %.2f Pa\r\n", latest_bmp.temperature, latest_bmp.pressure);
-      |             ^~~~~~
-../Core/Src/freertos.c:108:13: note: include '<stdio.h>' or provide a declaration of 'printf'
-../Core/Src/freertos.c: In function 'vTaskAccel':
-../Core/Src/freertos.c:118:5: warning: implicit declaration of function 'ADXL_Configure_Int' [-Wimplicit-function-declaration]
-  118 |     ADXL_Configure_Int();
-      |     ^~~~~~~~~~~~~~~~~~
-../Core/Src/freertos.c:135:13: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
-  135 |             printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", latest_accel.x_g, latest_accel.y_g, latest_accel.z_g);
-      |             ^~~~~~
-../Core/Src/freertos.c:135:13: note: include '<stdio.h>' or provide a declaration of 'printf'
-../Core/Src/freertos.c: In function 'vTaskSDLog':
-../Core/Src/freertos.c:144:9: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
-  144 |         printf("SD logger failed to initialize\r\n");
-      |         ^~~~~~
-../Core/Src/freertos.c:144:9: note: include '<stdio.h>' or provide a declaration of 'printf'
-../Core/Src/freertos.c:164:23: warning: implicit declaration of function 'apogee_has_occurred' [-Wimplicit-function-declaration]
-  164 |         bool apogee = apogee_has_occurred();
-      |                       ^~~~~~~~~~~~~~~~~~~
-../Core/Src/freertos.c:168:9: warning: implicit declaration of function 'snprintf' [-Wimplicit-function-declaration]
-  168 |         snprintf(line, sizeof(line),
-      |         ^~~~~~~~
-../Core/Src/freertos.c:168:9: note: include '<stdio.h>' or provide a declaration of 'snprintf'
-../Core/Src/freertos.c:168:9: warning: incompatible implicit declaration of built-in function 'snprintf' [-Wbuiltin-declaration-mismatch]
-../Core/Src/freertos.c:168:9: note: include '<stdio.h>' or provide a declaration of 'snprintf'
-../Core/Src/freertos.c:173:9: warning: implicit declaration of function 'SDLogger_WriteLine' [-Wimplicit-function-declaration]
-  173 |         SDLogger_WriteLine(line);
-      |         ^~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "godwilling.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\mailm\Desktop\localsh1\Projects\CHUD-MCU-V2-Firmware\godwilling\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="godwilling.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: godwilling.elf
- 
 arm-none-eabi-size  godwilling.elf 
-arm-none-eabi-objdump -h -S godwilling.elf  > "godwilling.list"
    text	   data	    bss	    dec	    hex	filename
-  65516	    492	  23684	  89692	  15e5c	godwilling.elf
+  60916	    492	  23636	  85044	  14c34	godwilling.elf
 Finished building: default.size.stdout
  
-Finished building: godwilling.list
- 
 
-01:09:08 Build Finished. 0 errors, 9 warnings. (took 1s.266ms)
+15:30:54 Build Finished. 0 errors, 0 warnings. (took 951ms)
 

@@ -8,7 +8,7 @@
 ../FATFS/Target/user_diskio.c:158:13:SD_SendCmd	11
 ../FATFS/Target/user_diskio.c:208:16:SD_RxDataBlock	4
 ../FATFS/Target/user_diskio.c:239:16:SD_TxDataBlock	5
-../FATFS/Target/user_diskio.c:272:9:USER_initialize	22
+../FATFS/Target/user_diskio.c:272:9:USER_initialize	21
 ../FATFS/Target/user_diskio.c:383:9:USER_status	3
 ../FATFS/Target/user_diskio.c:402:9:USER_read	12
 ../FATFS/Target/user_diskio.c:453:9:USER_write	13

@@ -1,4 +1,4 @@
 ../Core/Src/freertos.c:79:6:vSensorTasksInit	16	static
 ../Core/Src/freertos.c:92:6:vTaskBMP	32	static
 ../Core/Src/freertos.c:116:6:vTaskAccel	48	static
-../Core/Src/freertos.c:140:6:vTaskSDLog	264	static
+../Core/Src/freertos.c:141:6:vTaskSDLog	264	static

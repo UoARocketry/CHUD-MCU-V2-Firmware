@@ -147,6 +147,8 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
   printf("Hello\r\n");
+  ADXL314_Init();
+  ADXL_Configure_Int();
 
   // BMP585 -- kept for reference, not deleted, superseded by BME280 below
   // BMP585_Init();
@@ -185,7 +187,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+//  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -214,16 +216,16 @@ int main(void)
 //	  HAL_Delay(1000);
 
 	  // ADXL read chip ID, should be 0xE5
-	  /*
-	  uint8_t adxl_chipID = ADXL314_ReadReg(0x00);
-	  printf("ADXL chip ID = %X \r\n", adxl_chipID);
-	  */
 
-
-	  // ADXL full x,y,z data read (may need calibration factor from new)
-
+//	  uint8_t adxl_chipID = ADXL314_ReadReg(0x00);
+//	  printf("ADXL chip ID = %X \r\n", adxl_chipID);
+//
+//
+//
+//	  // ADXL full x,y,z data read (may need calibration factor from new)
+//
 //	  ADXL314_ReadAccel(&accel_data);
-	  //printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
+//	  printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
 
 
 	  /*
@@ -553,10 +555,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if (GPIO_Pin == ADXL_INT1_Pin) // substitute your actual macro name from main.h
   {
-	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+//	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     adxl_data_ready = 1;
-    xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
-    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+//    xSemaphoreGiveFromISR(accelDataReadySem, &xHigherPriorityTaskWoken);
+//    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
   }
 }
 
@@ -573,9 +575,9 @@ void StartDefaultTask(void *argument)
 {
 
 
-	FRESULT res = 0;
+//	FRESULT res = 0;
   /* USER CODE BEGIN 5 */
-	SDLogger_Init();
+//	SDLogger_Init();
   /* Infinite loop */
   for(;;)
   {
@@ -583,7 +585,7 @@ void StartDefaultTask(void *argument)
 	  //uint8_t bmp_chipID = BMP585_ReadReg(0x01);
 	  //printf("chip id = %X \r\n", bmp_chipID);
 //	  printf("CD pin state: %d\r\n", HAL_GPIO_ReadPin(SD_CD_GPIO_Port, SD_CD_Pin));
-	  res = SDLogger_WriteLine("Hello");
+//	  res = SDLogger_WriteLine("Hello");
 
 
 	  //bmp full 6 byte read test
