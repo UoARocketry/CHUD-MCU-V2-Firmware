@@ -145,13 +145,12 @@ int main(void)
   //ADXL314_Init();
   //ADXL314_Data_t accel_data;
 
-  //GNSS_Init();
-
+  GNSS_Init();
 
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  osKernelInitialize();
+  //osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -171,7 +170,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -182,7 +181,7 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
-  osKernelStart();
+  //osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 
@@ -191,9 +190,11 @@ int main(void)
   while (1)
   {
 
+	  /*
 	  BME280_Extract_Data(&bme_data);
 	  printf("TEMP: %.2f °C, PRES: %.2f hPa\r\n", bme_data.temperature, bme_data.pressure);
 	  HAL_Delay(1000);
+	  */
 
 	  // ADXL read chip ID, should be 0xE5
 	  /*
@@ -201,22 +202,16 @@ int main(void)
 	  printf("ADXL chip ID = %X \r\n", adxl_chipID);
 	  */
 
-
 	  // ADXL full x,y,z data read (may need calibration factor from new)
-
 	  //ADXL314_ReadAccel(&accel_data);
 	  //printf("X: %.2f g, Y: %.2f g, Z: %.2f g\r\n", accel_data.x_g, accel_data.y_g, accel_data.z_g);
 
-
-	  /*
 	  if (GNSS_Poll())
-	      {
-	          const char* sentence = GNSS_GetSentence();
-	          printf("%s", sentence);
-	      }
-	*/
-
-	  HAL_Delay(50);
+      {
+          const char* sentence = GNSS_GetSentence();
+          printf("%s", sentence);
+          fflush(stdout); // Force ITM to flush output buffer
+      }
 
     /* USER CODE END WHILE */
 
@@ -273,7 +268,6 @@ void SystemClock_Config(void)
   */
 static void MX_SPI1_Init(void)
 {
-
   /* USER CODE BEGIN SPI1_Init 0 */
 
   /* USER CODE END SPI1_Init 0 */
@@ -301,7 +295,6 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
-
 }
 
 /**
@@ -311,7 +304,6 @@ static void MX_SPI1_Init(void)
   */
 static void MX_SPI3_Init(void)
 {
-
   /* USER CODE BEGIN SPI3_Init 0 */
 
   /* USER CODE END SPI3_Init 0 */
@@ -339,7 +331,6 @@ static void MX_SPI3_Init(void)
   /* USER CODE BEGIN SPI3_Init 2 */
 
   /* USER CODE END SPI3_Init 2 */
-
 }
 
 /**
@@ -349,7 +340,6 @@ static void MX_SPI3_Init(void)
   */
 static void MX_TIM3_Init(void)
 {
-
   /* USER CODE BEGIN TIM3_Init 0 */
 
   /* USER CODE END TIM3_Init 0 */
@@ -384,7 +374,6 @@ static void MX_TIM3_Init(void)
   /* USER CODE BEGIN TIM3_Init 2 */
 
   /* USER CODE END TIM3_Init 2 */
-
 }
 
 /**
@@ -394,7 +383,6 @@ static void MX_TIM3_Init(void)
   */
 static void MX_USART1_UART_Init(void)
 {
-
   /* USER CODE BEGIN USART1_Init 0 */
 
   /* USER CODE END USART1_Init 0 */
@@ -416,8 +404,13 @@ static void MX_USART1_UART_Init(void)
   }
   /* USER CODE BEGIN USART1_Init 2 */
 
-  /* USER CODE END USART1_Init 2 */
+  // Enable the USART1 Global Interrupt in the NVIC
+  // Crucial step often missed during CubeMX code generation,
+  // preventing GNSS UART Rx interrupts from ever triggering.
+  HAL_NVIC_SetPriority(USART1_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(USART1_IRQn);
 
+  /* USER CODE END USART1_Init 2 */
 }
 
 /**
@@ -498,6 +491,12 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
+	  if (GNSS_Poll())
+      {
+          const char* sentence = GNSS_GetSentence();
+          printf("%s", sentence);
+          fflush(stdout);
+      }
     osDelay(1);
   }
   /* USER CODE END 5 */
@@ -539,6 +538,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
+
 #ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
